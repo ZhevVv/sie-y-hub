@@ -1,6 +1,3 @@
---- SIE Y SECURE WRAPPER ---
-I-paste ang GitHub raw link mo dito: https://raw.githubusercontent.com/ZhevVv/sie-y-hub/refs/heads/main/key.lua
-[*] Kino-kunin ang code mula sa GitHub...
 
 --- RESULT (Kopyahin at i-save sa GitHub) ---
 
