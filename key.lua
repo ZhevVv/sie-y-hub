@@ -23,11 +23,11 @@ local Config = {
     Secret          = "vheo123", -- This makes the script ONLY run from the key script. Even if they copy the original obfuscated script to bypass the key, they won't be able to!
     
     -- [3] Scripts & Links
-    MainScriptURL   = "Link", -- The raw URL of your main script
+    MainScriptURL   = "https://raw.githubusercontent.com/ZhevVv/sie-y-hub/refs/heads/main/script.lua", -- The raw URL of your main script
     
     -- [4] Social Media Settings (Set to true to show, false to hide)
-    ShowDiscord     = false,
-    DiscordURL      = "https://discord.gg/kT55J724BK",
+    ShowDiscord     = true,
+    DiscordURL      = "https://discord.gg/rzqW2H43Ec",
     
     ShowInstagram   = false,
     InstagramURL    = "https://www.instagram.com/oyb0i/",
@@ -39,12 +39,12 @@ local Config = {
     KeyFileName     = "Mykey.txt", -- The name of the file where the valid key will be saved for auto-login
 
     -- [6] GUI Management
-    OldGuiName      = "", -- Name of the old GUI to destroy if it's already open
-    MainGuiName     = "", -- Name of the main script's GUI to check if it's already executing
+    OldGuiName      = "SIE Y HUB", -- Name of the old GUI to destroy if it's already open
+    MainGuiName     = "SIE Y HUB", -- Name of the main script's GUI to check if it's already executing
 
     -- [7] Hub Information & UI Text
-    HubName         = "Test", -- The main title shown at the top of the GUI
-    HubDescription  = "Test" -- The text shown below the title
+    HubName         = "SIE Y", -- The main title shown at the top of the GUI
+    HubDescription  = "Hello There! Thankyou for using Sie Y Hub, for more script join to our discord" -- The text shown below the title
 }
 
 -------------------------------------------------------------------------------
