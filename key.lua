@@ -1,8 +1,4 @@
---- SIE Y STRONG OBFUSCATOR ---
-I-paste ang GitHub raw link mo dito: https://raw.githubusercontent.com/ZhevVv/sie-y-hub/refs/heads/main/key.lua
-[*] Kino-kunin ang code mula sa GitHub...
-
---- RESULT (Kopyahin at i-save sa GitHub) ---
+-
 
 --[[ Protected by Sie Y Advanced Obfuscator ]]--
 local _G_ENV = getgenv or _G
