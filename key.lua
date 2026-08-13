@@ -1,16 +1,20 @@
+
+--[[ Protected by Sie Y Mobile Tool ]]--
+local _ENV_G = getgenv or _G
+
 --[[
     ================================================================
     [ SCRIPT INFORMATION ]
     Project: Custom Script
     Author: OYB
     YouTube: https://www.youtube.com/channel/UCAlXXV1Hbvf7WbfXARuVtiQ
-    
+
     [ TERMS AND CONDITIONS ]
     - You ARE allowed to use and modify this script for your own games.
-    - You ARE NOT allowed to re-upload, redistribute, or claim 
+    - You ARE NOT allowed to re-upload, redistribute, or claim
       ownership of this script.
     - Removing or altering these credits is strictly prohibited.
-    
+
     Copyright (c) 2026 OYB. All rights reserved.
     ================================================================
 ]]
@@ -21,17 +25,17 @@ local Config = {
 
     -- [2] Anti-Bypass / Global Secret Variable
     Secret          = "vheo123", -- This makes the script ONLY run from the key script. Even if they copy the original obfuscated script to bypass the key, they won't be able to!
-    
+
     -- [3] Scripts & Links
     MainScriptURL   = "https://raw.githubusercontent.com/ZhevVv/sie-y-hub/refs/heads/main/script.lua", -- The raw URL of your main script
-    
+
     -- [4] Social Media Settings (Set to true to show, false to hide)
     ShowDiscord     = true,
     DiscordURL      = "https://discord.gg/rzqW2H43Ec",
-    
+
     ShowInstagram   = false,
     InstagramURL    = "https://www.instagram.com/oyb0i/",
-    
+
     ShowYoutube     = false,
     YoutubeURL      = "https://www.youtube.com/channel/UCAlXXV1Hbvf7WbfXARuVtiQ",
 
@@ -68,8 +72,7 @@ local function safeRequest(options)
 end
 
 local fSetClipboard = setclipboard or toclipboard or function() end
-local fStringChar, fToString, fOsTime, fMathRandom, fMathFloor = string.char, tostring, os.time, math.random, math.floor
-local fGetHwid = gethwid or function() return game:GetService("RbxAnalyticsService"):GetClientId() end
+local fStringChar, fToString, fOsTime, fMathRandom, fMathFloor = string.char, tostring, os.time, math.random, math.floorlocal fGetHwid = gethwid or function() return game:GetService("RbxAnalyticsService"):GetClientId() end
 
 local cachedLink, cachedTime = "", 0
 local host = "https://api.platoboost.com"
@@ -116,21 +119,21 @@ local function redeemKey(key)
     local nonce = generateNonce()
     local body = {identifier = lDigest(fGetHwid()), key = key}
     if useNonce then body.nonce = nonce end
-    
+
     local response, err = safeRequest({
         Url = host .. "/public/redeem/" .. fToString(Config.ServiceId),
         Method = "POST",
         Body = lEncode(body),
         Headers = {["Content-Type"] = "application/json"}
     })
-    
+
     if response and response.StatusCode == 200 then
         local decoded = lDecode(response.Body)
         if decoded.success and decoded.data.valid then
             if useNonce then
-                if decoded.data.hash == lDigest("true" .. "-" .. nonce .. "-" .. Config.PlatoSecret) then 
+                if decoded.data.hash == lDigest("true" .. "-" .. nonce .. "-" .. Config.PlatoSecret) then
                     if writefile then writefile(Config.KeyFileName, key) end
-                    return true, "Success" 
+                    return true, "Success"
                 end
                 return false, "Integrity Check Failed"
             end
@@ -149,16 +152,16 @@ end
 local function StartMainScript()
     local player = game:GetService("Players").LocalPlayer
     local pGui = player:WaitForChild("PlayerGui")
-    
+
     -- Destroy old GUI if it exists
-    if pGui:FindFirstChild(Config.OldGuiName) then 
-        pGui[Config.OldGuiName]:Destroy() 
+    if pGui:FindFirstChild(Config.OldGuiName) then
+        pGui[Config.OldGuiName]:Destroy()
         task.wait(0.1)
     end
-    
+
     -- Set secret global variable to bypass main script protection
-    _G[Config.Secret] = true 
-    
+    _G[Config.Secret] = true
+
     -- Execute main script
     loadstring(game:HttpGet(Config.MainScriptURL))()
 end
@@ -167,7 +170,7 @@ local function CreateGUI()
     local player = game:GetService("Players").LocalPlayer
     local coreGui = game:GetService("CoreGui")
     local targetParent = pcall(function() return coreGui end) and coreGui or player:WaitForChild("PlayerGui")
-    
+
     if targetParent:FindFirstChild("OYB_KeySystem") then targetParent.OYB_KeySystem:Destroy() end
 
     local ScreenGui = Instance.new("ScreenGui", targetParent)
@@ -181,7 +184,7 @@ local function CreateGUI()
     MainFrame.Active = true;
     MainFrame.Draggable = true
     Instance.new("UICorner", MainFrame).CornerRadius = UDim.new(0, 15)
-    
+
     local mainStroke = Instance.new("UIStroke", MainFrame)
     mainStroke.Thickness = 2;
     mainStroke.Color = Color3.fromRGB(40, 40, 40)
@@ -221,8 +224,7 @@ local function CreateGUI()
     local function AddRainbowStroke(parent)
         local stroke = Instance.new("UIStroke", parent)
         stroke.Thickness = 2
-        stroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-        task.spawn(function()
+        stroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border        task.spawn(function()
             while task.wait() do
                 local hue = tick() % 5 / 5
                 stroke.Color = Color3.fromHSV(hue, 1, 1)
@@ -251,11 +253,11 @@ local function CreateGUI()
         DiscordIcon.Position = UDim2.new(0.1, 0, 0.5, -10)
         DiscordIcon.BackgroundTransparency = 1
         DiscordIcon.Image = "rbxassetid://18505728201"
-        
+
         DiscordBtn.MouseButton1Click:Connect(function()
             fSetClipboard(Config.DiscordURL)
             local Status = MainFrame:FindFirstChild("StatusLabel")
-            if Status then 
+            if Status then
                 Status.Text = "Discord Link Copied!"
                 Status.TextColor3 = Color3.fromRGB(88, 101, 242)
             end
@@ -265,7 +267,7 @@ local function CreateGUI()
                 syn.request({Url = "http://localhost:1111/discord?invite=" .. inviteCode, Method = "GET"})
             end
         end)
-        
+
         currentYOffset = currentYOffset + 45
     end
 
@@ -287,16 +289,16 @@ local function CreateGUI()
         InstaIcon.Position = UDim2.new(0.1, 0, 0.5, -10)
         InstaIcon.BackgroundTransparency = 1
         InstaIcon.Image = "rbxassetid://18355586382"
-        
+
         InstaBtn.MouseButton1Click:Connect(function()
             fSetClipboard(Config.InstagramURL)
             local Status = MainFrame:FindFirstChild("StatusLabel")
-            if Status then 
+            if Status then
                 Status.Text = "Instagram Link Copied!"
                 Status.TextColor3 = Color3.fromRGB(225, 48, 108)
             end
         end)
-        
+
         currentYOffset = currentYOffset + 45
     end
 
@@ -318,7 +320,7 @@ local function CreateGUI()
         YTIcon.Position = UDim2.new(0.1, 0, 0.5, -10)
         YTIcon.BackgroundTransparency = 1
         YTIcon.Image = "rbxassetid://82532989017804"
-        
+
         YTBtn.MouseButton1Click:Connect(function()
             fSetClipboard(Config.YoutubeURL)
             local Status = MainFrame:FindFirstChild("StatusLabel")
@@ -327,7 +329,7 @@ local function CreateGUI()
                 Status.TextColor3 = Color3.fromRGB(255, 0, 0)
             end
         end)
-        
+
         currentYOffset = currentYOffset + 45
     end
 
@@ -359,8 +361,7 @@ local function CreateGUI()
     GetKeyBtn.Text = "GET KEY"
     GetKeyBtn.Font = "GothamBold";
     GetKeyBtn.TextSize = 14
-    GetKeyBtn.BackgroundColor3 = Color3.fromRGB(35, 35, 35);
-    GetKeyBtn.TextColor3 = Color3.new(1, 1, 1)
+    GetKeyBtn.BackgroundColor3 = Color3.fromRGB(35, 35, 35);    GetKeyBtn.TextColor3 = Color3.new(1, 1, 1)
     Instance.new("UICorner", GetKeyBtn)
 
     local Status = Instance.new("TextLabel", MainFrame)
@@ -372,7 +373,7 @@ local function CreateGUI()
     Status.TextColor3 = Color3.fromRGB(150, 150, 150)
     Status.Font = Enum.Font.Gotham;
     Status.TextSize = 12
-    
+
     -- Dynamically adjust main frame height based on active elements
     MainFrame.Size = UDim2.new(0, 340, 0, currentYOffset + 160)
 
@@ -439,3 +440,8 @@ end
 
 -- Initialize Key System GUI
 CreateGUI()
+
+
+------------------------------------------------
+
+[Program finished]
