@@ -1,19 +1,50 @@
-local _jBuZlTVJLne = {
-    ServiceId       = 29627,
-    PlatoSecret     = "9cc778c7-b1e1-4506-bb6d-ef91c34437d2",
-    Secret          = "vheo123",
-    MainScriptURL   = "\104\116\116\112\115\58\47\47\114\97\119\46\103\105\116\104\117\98\117\115\101\114\99\111\110\116\101\110\116\46\99\111\109\47\90\104\101\118\86\118\47\115\105\101\45\121\45\104\117\98\47\114\101\102\115\47\104\101\97\100\115\47\109\97\105\110\47\115\99\114\105\112\116\46\108\117\97",
+--[[
+    ================================================================
+    [ SCRIPT INFORMATION ]
+    Project: Custom Script
+    Author: OYB
+    YouTube: https://www.youtube.com/channel/UCAlXXV1Hbvf7WbfXARuVtiQ
+    
+    [ TERMS AND CONDITIONS ]
+    - You ARE allowed to use and modify this script for your own games.
+    - You ARE NOT allowed to re-upload, redistribute, or claim 
+      ownership of this script.
+    - Removing or altering these credits is strictly prohibited.
+    
+    Copyright (c) 2026 OYB. All rights reserved.
+    ================================================================
+]]
+local Config = {
+    -- [1] PlatoBoost Settings
+    ServiceId       = 29627, -- Your PlatoBoost Service ID
+    PlatoSecret     = "9cc778c7-b1e1-4506-bb6d-ef91c34437d2", -- Your PlatoBoost Secret Key
+
+    -- [2] Anti-Bypass / Global Secret Variable
+    Secret          = "vheo123", -- This makes the script ONLY run from the key script. Even if they copy the original obfuscated script to bypass the key, they won't be able to!
+    
+    -- [3] Scripts & Links
+    MainScriptURL   = string.char(104,116,116,112,115,58,47,47,114,97,119,46,103,105,116,104,117,98,117,115,101,114,99,111,110,116,101,110,116,46,99,111,109,47,90,104,101,118,86,118,47,115,105,101,45,121,45,104,117,98,47,114,101,102,115,47,104,101,97,100,115,47,109,97,105,110,47,115,99,114,105,112,116,46,108,117,97), -- The raw URL of your main script
+    
+    -- [4] Social Media Settings to true to show, false to hide)
     ShowDiscord     = true,
-    DiscordURL      = "\104\116\116\112\115\58\47\47\100\105\115\99\111\114\100\46\103\103\47\114\122\113\87\50\72\52\51\69\99",
+    DiscordURL      = "https://discord.gg/rzqW2H43Ec",
+    
     ShowInstagram   = false,
-    InstagramURL    = "\104\116\116\112\115\58\47\47\119\119\119\46\105\110\115\116\97\103\114\97\109\46\99\111\109\47\111\121\98\48\105\47",
+    InstagramURL    = "https://www.instagram.com/oyb0i/",
+    
     ShowYoutube     = false,
-    YoutubeURL      = "\104\116\116\112\115\58\47\47\119\119\119\46\121\111\117\116\117\98\101\46\99\111\109\47\99\104\97\110\110\101\108\47\85\67\65\108\88\88\86\49\72\98\118\102\55\87\98\102\88\65\82\117\86\116\105\81",
-    KeyFileName     = "\77\121\107\101\121\46\116\120\116",
-    OldGuiName      = "\83\73\69\32\89\32\72\85\66",
-    MainGuiName     = "\83\73\69\32\89\32\72\85\66",
-    HubName         = "\83\73\69\32\89",
-    HubDescription  = "\72\101\108\108\111\32\84\104\101\114\101\33\32\84\104\97\110\107\121\111\117\32\102\111\114\32\117\115\105\110\103\32\83\105\101\32\89\32\72\117\98\44\32\102\111\114\32\109\111\114\101\32\115\99\114\105\112\116\32\106\111\105\110\32\116\111\32\111\117\114\32\100\105\115\99\111\114\100"
+    YoutubeURL      = "https://www.youtube.com/channel/UCAlXXV1Hbvf7WbfXARuVtiQ",
+
+    -- [5] File System
+    KeyFileName     = "Mykey.txt", -- The name of the file where the valid key will be saved for auto-login
+
+    -- [6] GUI Management
+    OldGuiName      = "SIE Y HUB", -- Name of the old GUI to destroy if it's already open
+    MainGuiName     = "SIE Y HUB", -- Name of the main script's GUI to check if it's already executing
+
+    -- [7] Hub Information & UI Text
+    HubName         = "SIE Y", -- The main title shown at the top of the GUI
+    HubDescription  = "Hello There! Thankyou for using Sie Y Hub, for more script join to our discord" -- The text shown below the title
 }
 
 -------------------------------------------------------------------------------
