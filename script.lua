@@ -1,8 +1,31 @@
+--[[
+    ================================================================
+    [ SCRIPT INFORMATION ]
+    Project: Custom Script
+    Author: OYB
+    YouTube: https://www.youtube.com/channel/UCAlXXV1Hbvf7WbfXARuVtiQ
+    
+    [ TERMS AND CONDITIONS ]
+    - You ARE allowed to use and modify this script for your own games.
+    - You ARE NOT allowed to re-upload, redistribute, or claim 
+      ownership of this script.
+    - Removing or altering these credits is strictly prohibited.
+    
+    Copyright (c) 2026 OYB. All rights reserved.
+    ================================================================
+]]
+
+-- ⚠️ IMPORTANT: Put this code at the VERY TOP of your Main Script (before obfuscating) ⚠️
+
 local ProtectionConfig = {
+    -- 🔴 CRITICAL: This MUST exactly match the 'Secret' value in your Key System's Config!
     SecretKey = "vheo123",
+    
+    -- The name of your Hub (shown in the kick message if they try to bypass)
     HubName = "SIE Y HUB"
 }
 
+-- Anti-Bypass Logic: Checks if the Key System successfully set the global variable
 if not _G[ProtectionConfig.SecretKey] then
     local player = game:GetService("Players").LocalPlayer
     if player then
@@ -12,7 +35,7 @@ if not _G[ProtectionConfig.SecretKey] then
 end
 
 -------------------------------------------------------------------------------
--- MAIN SCRIPT CODE
+-- 👇 YOUR MAIN SCRIPT CODE STARTS HERE 👇
 -------------------------------------------------------------------------------
 
 print(ProtectionConfig.HubName .. " Loaded Successfully!")
@@ -126,78 +149,6 @@ local function OpenMainHub()
             mDragging = false
         end
     end)
-
-    local ModalContent = Instance.new("ScrollingFrame", SettingsModal)
-    ModalContent.Size = UDim2.new(1, -16, 1, -45)
-    ModalContent.Position = UDim2.new(0, 8, 0, 38)
-    ModalContent.BackgroundTransparency = 1
-    ModalContent.CanvasSize = UDim2.new(0, 0, 0, 180)
-    ModalContent.ScrollBarThickness = 2
-    ModalContent.ZIndex = 11
-
-    local ModalLayout = Instance.new("UIListLayout", ModalContent)
-    ModalLayout.Padding = UDim.new(0, 6)
-
-    local function AddModalToggle(parent, titleText, descText, defaultState)
-        local card = Instance.new("Frame", parent)
-        card.Size = UDim2.new(1, 0, 0, 42)
-        card.BackgroundColor3 = THEME.CardBg
-        card.ZIndex = 11
-        Instance.new("UICorner", card).CornerRadius = UDim.new(0, 6)
-
-        local tLbl = Instance.new("TextLabel", card)
-        tLbl.Size = UDim2.new(1, -50, 0, 14)
-        tLbl.Position = UDim2.new(0, 10, 0, 6)
-        tLbl.BackgroundTransparency = 1
-        tLbl.Text = titleText
-        tLbl.TextColor3 = THEME.TextWhite
-        tLbl.Font = Enum.Font.GothamBold
-        tLbl.TextSize = 9
-        tLbl.TextXAlignment = Enum.TextXAlignment.Left
-        tLbl.ZIndex = 11
-
-        local dLbl = Instance.new("TextLabel", card)
-        dLbl.Size = UDim2.new(1, -50, 0, 12)
-        dLbl.Position = UDim2.new(0, 10, 0, 20)
-        dLbl.BackgroundTransparency = 1
-        dLbl.Text = descText
-        dLbl.TextColor3 = THEME.TextGray
-        dLbl.Font = Enum.Font.Gotham
-        dLbl.TextSize = 7.5
-        dLbl.TextXAlignment = Enum.TextXAlignment.Left
-        dLbl.ZIndex = 11
-
-        local switch = Instance.new("TextButton", card)
-        switch.Size = UDim2.new(0, 24, 0, 12)
-        switch.Position = UDim2.new(1, -32, 0.5, -6)
-        switch.BackgroundColor3 = defaultState and THEME.AccentPurple or Color3.fromRGB(40, 40, 55)
-        switch.Text = ""
-        switch.ZIndex = 11
-        Instance.new("UICorner", switch).CornerRadius = UDim.new(1, 0)
-
-        local dot = Instance.new("Frame", switch)
-        dot.Size = UDim2.new(0, 8, 0, 8)
-        dot.Position = defaultState and UDim2.new(1, -10, 0.5, -4) or UDim2.new(0, 2, 0.5, -4)
-        dot.BackgroundColor3 = THEME.TextWhite
-        dot.ZIndex = 11
-        Instance.new("UICorner", dot).CornerRadius = UDim.new(1, 0)
-
-        local active = defaultState
-        switch.MouseButton1Click:Connect(function()
-            active = not active
-            if active then
-                TweenService:Create(switch, TweenInfo.new(0.2), {BackgroundColor3 = THEME.AccentPurple}):Play()
-                TweenService:Create(dot, TweenInfo.new(0.2), {Position = UDim2.new(1, -10, 0.5, -4)}):Play()
-            else
-                TweenService:Create(switch, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(40, 40, 55)}):Play()
-                TweenService:Create(dot, TweenInfo.new(0.2), {Position = UDim2.new(0, 2, 0.5, -4)}):Play()
-            end
-        end)
-    end
-
-    AddModalToggle(ModalContent, "Show Welcome Notification", "Magpakita ng alert kapag pumasok sa laro.", true)
-    AddModalToggle(ModalContent, "Hardware Acceleration", "Gamitin ang GPU para sa mas malinis na UI animations.", true)
-    AddModalToggle(ModalContent, "Save Config on Exit", "I-save agad ang current toggles mo.", false)
 
     local ToggleContainer = Instance.new("Frame", ScreenGui)
     ToggleContainer.Size = UDim2.new(0, 195, 0, 42)
@@ -440,8 +391,6 @@ local function OpenMainHub()
     local PagesContainer = Instance.new("Folder", MainFrame)
     PagesContainer.Name = "PagesContainer"
 
-    local AllPages = {}
-
     local function CreatePage()
         local page = Instance.new("ScrollingFrame", PagesContainer)
         page.Size = UDim2.new(1, -136, 1, -44)
@@ -471,7 +420,7 @@ local function OpenMainHub()
     WelPrefix.Size = UDim2.new(1, -10, 0, 12)
     WelPrefix.Position = UDim2.new(0, 8, 0, 6)
     WelPrefix.BackgroundTransparency = 1
-    WelPrefix.Text = "Good evening,"
+    WelPrefix.Text = "Welcome,"
     WelPrefix.TextColor3 = THEME.TextWhite
     WelPrefix.Font = Enum.Font.GothamMedium
     WelPrefix.TextSize = 7.5
@@ -538,294 +487,6 @@ local function OpenMainHub()
     PingText.Font = Enum.Font.Gotham
     PingText.TextSize = 7
     PingText.TextXAlignment = Enum.TextXAlignment.Left
-
-    local GridContainer = Instance.new("Frame", pDashboard)
-    GridContainer.Size = UDim2.new(1, -6, 0, 240)
-    GridContainer.BackgroundTransparency = 1
-
-    local UIGrid = Instance.new("UIGridLayout", GridContainer)
-    UIGrid.CellSize = UDim2.new(0.49, 0, 0, 54)
-    UIGrid.CellPadding = UDim2.new(0.02, 0, 0, 6)
-
-    local function AddGridToggle(parent, name, defaultState)
-        local card = Instance.new("Frame", parent)
-        card.BackgroundColor3 = THEME.CardBg
-        Instance.new("UICorner", card).CornerRadius = UDim.new(0, 6)
-
-        local nameLbl = Instance.new("TextLabel", card)
-        nameLbl.Size = UDim2.new(1, -8, 0, 16)
-        nameLbl.Position = UDim2.new(0, 8, 0, 6)
-        nameLbl.BackgroundTransparency = 1
-        nameLbl.Text = name
-        nameLbl.TextColor3 = THEME.TextWhite
-        nameLbl.Font = Enum.Font.GothamBold
-        nameLbl.TextSize = 10
-        nameLbl.TextXAlignment = Enum.TextXAlignment.Left
-
-        local stateLbl = Instance.new("TextLabel", card)
-        stateLbl.Size = UDim2.new(1, -8, 0, 12)
-        stateLbl.Position = UDim2.new(0, 8, 0, 22)
-        stateLbl.BackgroundTransparency = 1
-        stateLbl.Text = defaultState and "Enabled" or "Disabled"
-        stateLbl.TextColor3 = defaultState and THEME.SuccessGreen or THEME.TextGray
-        stateLbl.Font = Enum.Font.Gotham
-        stateLbl.TextSize = 8
-        stateLbl.TextXAlignment = Enum.TextXAlignment.Left
-
-        local switch = Instance.new("TextButton", card)
-        switch.Size = UDim2.new(0, 26, 0, 13)
-        switch.Position = UDim2.new(1, -30, 1, -18)
-        switch.BackgroundColor3 = defaultState and THEME.AccentPurple or Color3.fromRGB(40, 40, 55)
-        switch.Text = ""
-        Instance.new("UICorner", switch).CornerRadius = UDim.new(1, 0)
-
-        local dot = Instance.new("Frame", switch)
-        dot.Size = UDim2.new(0, 9, 0, 9)
-        dot.Position = defaultState and UDim2.new(1, -11, 0.5, -4.5) or UDim2.new(0, 2, 0.5, -4.5)
-        dot.BackgroundColor3 = THEME.TextWhite
-        Instance.new("UICorner", dot).CornerRadius = UDim.new(1, 0)
-
-        local active = defaultState
-        switch.MouseButton1Click:Connect(function()
-            active = not active
-            stateLbl.Text = active and "Enabled" or "Disabled"
-            stateLbl.TextColor3 = active and THEME.SuccessGreen or THEME.TextGray
-            if active then
-                TweenService:Create(switch, TweenInfo.new(0.2), {BackgroundColor3 = THEME.AccentPurple}):Play()
-                TweenService:Create(dot, TweenInfo.new(0.2), {Position = UDim2.new(1, -11, 0.5, -4.5)}):Play()
-            else
-                TweenService:Create(switch, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(40, 40, 55)}):Play()
-                TweenService:Create(dot, TweenInfo.new(0.2), {Position = UDim2.new(0, 2, 0.5, -4.5)}):Play()
-            end
-        end)
-    end
-
-    AddGridToggle(GridContainer, "Infinite Jump", true)
-    AddGridToggle(GridContainer, "Noclip", false)
-    AddGridToggle(GridContainer, "Fly", false)
-    AddGridToggle(GridContainer, "Speed Boost", true)
-    AddGridToggle(GridContainer, "God Mode", false)
-    AddGridToggle(GridContainer, "ESP", true)
-    AddGridToggle(GridContainer, "Auto Farm", false)
-    AddGridToggle(GridContainer, "Anti Fall", true)
-
-    local pPlayer = CreatePage()
-    local pVisuals = CreatePage()
-    local pWorld = CreatePage()
-    local pUtility = CreatePage()
-    local pMisc = CreatePage()
-    local pTheme = CreatePage()
-    local pSettings = CreatePage()
-
-    local function AddSimpleToggle(parent, name, defaultState)
-        local card = Instance.new("Frame", parent)
-        card.Size = UDim2.new(1, -6, 0, 32)
-        card.BackgroundColor3 = THEME.CardBg
-        Instance.new("UICorner", card).CornerRadius = UDim.new(0, 6)
-
-        local nameLbl = Instance.new("TextLabel", card)
-        nameLbl.Size = UDim2.new(1, -40, 1, 0)
-        nameLbl.Position = UDim2.new(0, 8, 0, 0)
-        nameLbl.BackgroundTransparency = 1
-        nameLbl.Text = name
-        nameLbl.TextColor3 = THEME.TextWhite
-        nameLbl.Font = Enum.Font.GothamBold
-        nameLbl.TextSize = 9
-        nameLbl.TextXAlignment = Enum.TextXAlignment.Left
-
-        local switch = Instance.new("TextButton", card)
-        switch.Size = UDim2.new(0, 24, 0, 12)
-        switch.Position = UDim2.new(1, -30, 0.5, -6)
-        switch.BackgroundColor3 = defaultState and THEME.AccentPurple or Color3.fromRGB(40, 40, 55)
-        switch.Text = ""
-        Instance.new("UICorner", switch).CornerRadius = UDim.new(1, 0)
-
-        local dot = Instance.new("Frame", switch)
-        dot.Size = UDim2.new(0, 8, 0, 8)
-        dot.Position = defaultState and UDim2.new(1, -10, 0.5, -4) or UDim2.new(0, 2, 0.5, -4)
-        dot.BackgroundColor3 = THEME.TextWhite
-        Instance.new("UICorner", dot).CornerRadius = UDim.new(1, 0)
-
-        local active = defaultState
-        switch.MouseButton1Click:Connect(function()
-            active = not active
-            if active then
-                TweenService:Create(switch, TweenInfo.new(0.2), {BackgroundColor3 = THEME.AccentPurple}):Play()
-                TweenService:Create(dot, TweenInfo.new(0.2), {Position = UDim2.new(1, -10, 0.5, -4)}):Play()
-            else
-                TweenService:Create(switch, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(40, 40, 55)}):Play()
-                TweenService:Create(dot, TweenInfo.new(0.2), {Position = UDim2.new(0, 2, 0.5, -4)}):Play()
-            end
-        end)
-    end
-
-    local function AddSlider(parent, name, min, max, default)
-        local card = Instance.new("Frame", parent)
-        card.Size = UDim2.new(1, -6, 0, 42)
-        card.BackgroundColor3 = THEME.CardBg
-        Instance.new("UICorner", card).CornerRadius = UDim.new(0, 6)
-
-        local nameLbl = Instance.new("TextLabel", card)
-        nameLbl.Size = UDim2.new(1, -48, 0, 16)
-        nameLbl.Position = UDim2.new(0, 8, 0, 4)
-        nameLbl.BackgroundTransparency = 1
-        nameLbl.Text = name
-        nameLbl.TextColor3 = THEME.TextWhite
-        nameLbl.Font = Enum.Font.GothamBold
-        nameLbl.TextSize = 9
-        nameLbl.TextXAlignment = Enum.TextXAlignment.Left
-
-        local valLbl = Instance.new("TextLabel", card)
-        valLbl.Size = UDim2.new(0, 40, 0, 16)
-        valLbl.Position = UDim2.new(1, -48, 0, 4)
-        valLbl.BackgroundTransparency = 1
-        valLbl.Text = tostring(default)
-        valLbl.TextColor3 = THEME.AccentPurple
-        valLbl.Font = Enum.Font.GothamBold
-        valLbl.TextSize = 9
-        valLbl.TextXAlignment = Enum.TextXAlignment.Right
-
-        local sliderBar = Instance.new("Frame", card)
-        sliderBar.Size = UDim2.new(1, -16, 0, 6)
-        sliderBar.Position = UDim2.new(0, 8, 0, 26)
-        sliderBar.BackgroundColor3 = Color3.fromRGB(40, 35, 55)
-        Instance.new("UICorner", sliderBar).CornerRadius = UDim.new(1, 0)
-
-        local fill = Instance.new("Frame", sliderBar)
-        fill.Size = UDim2.new((default - min) / (max - min), 0, 1, 0)
-        fill.BackgroundColor3 = THEME.AccentPurple
-        Instance.new("UICorner", fill).CornerRadius = UDim.new(1, 0)
-
-        local btn = Instance.new("TextButton", sliderBar)
-        btn.Size = UDim2.new(1, 0, 1, 0)
-        btn.BackgroundTransparency = 1
-        btn.Text = ""
-
-        local dragging = false
-        btn.InputBegan:Connect(function(input)
-            if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-                dragging = true
-            end
-        end)
-
-        UserInputService.InputEnded:Connect(function(input)
-            if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-                dragging = false
-            end
-        end)
-
-        UserInputService.InputChanged:Connect(function(input)
-            if dragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
-                local pos = math.clamp((input.Position.X - sliderBar.AbsolutePosition.X) / sliderBar.AbsoluteSize.X, 0, 1)
-                local val = math.floor(min + (max - min) * pos)
-                fill.Size = UDim2.new(pos, 0, 1, 0)
-                valLbl.Text = tostring(val)
-            end
-        end)
-    end
-
-    local function AddButton(parent, name, callback)
-        local card = Instance.new("Frame", parent)
-        card.Size = UDim2.new(1, -6, 0, 32)
-        card.BackgroundColor3 = THEME.CardBg
-        Instance.new("UICorner", card).CornerRadius = UDim.new(0, 6)
-
-        local btn = Instance.new("TextButton", card)
-        btn.Size = UDim2.new(1, 0, 1, 0)
-        btn.BackgroundTransparency = 1
-        btn.Text = "   " .. name
-        btn.TextColor3 = THEME.TextWhite
-        btn.Font = Enum.Font.GothamBold
-        btn.TextSize = 9
-        btn.TextXAlignment = Enum.TextXAlignment.Left
-
-        btn.MouseButton1Click:Connect(function()
-            if callback then callback() end
-        end)
-    end
-
-    AddSimpleToggle(pPlayer, "WalkSpeed Multiplier", true)
-    AddSlider(pPlayer, "WalkSpeed Value", 16, 250, 50)
-    AddSimpleToggle(pPlayer, "JumpPower Modifier", false)
-    AddSlider(pPlayer, "JumpPower Value", 50, 300, 100)
-
-    AddSimpleToggle(pVisuals, "ESP Box", true)
-    AddSimpleToggle(pVisuals, "Fullbright Lighting", true)
-    AddSlider(pVisuals, "FOV Changer", 70, 120, 90)
-
-    AddSimpleToggle(pWorld, "Remove Fog", true)
-    AddSimpleToggle(pWorld, "Custom Time Lock", false)
-    AddButton(pWorld, "Instant Server Hop", function() print("Hopping...") end)
-
-    AddSimpleToggle(pUtility, "Kill Aura", false)
-    AddSimpleToggle(pUtility, "Anti AFK Kick", true)
-    AddButton(pUtility, "Rejoin Server", function()
-        game:GetService("TeleportService"):Teleport(game.PlaceId, LocalPlayer)
-    end)
-
-    AddSimpleToggle(pMisc, "Server Rejoin", false)
-    AddSimpleToggle(pMisc, "FPS Cap Unlocker", true)
-    AddButton(pMisc, "Copy Discord Invite", function() print("Copied") end)
-
-    AddSimpleToggle(pTheme, "Dark Theme Mode", true)
-    AddSlider(pTheme, "UI Transparency", 0, 50, 10)
-    AddButton(pTheme, "Reset to Default Theme", function() print("Theme Reset") end)
-
-    AddSimpleToggle(pSettings, "Auto Save Configuration", true)
-    AddButton(pSettings, "Destroy UI", function() ScreenGui:Destroy() end)
-
-    table.insert(AllPages, pDashboard)
-    table.insert(AllPages, pPlayer)
-    table.insert(AllPages, pVisuals)
-    table.insert(AllPages, pWorld)
-    table.insert(AllPages, pUtility)
-    table.insert(AllPages, pMisc)
-    table.insert(AllPages, pTheme)
-    table.insert(AllPages, pSettings)
-
-    local TabButtons = {}
-
-    local function CreateTab(name, icon, index, isSelected)
-        local btn = Instance.new("TextButton", NavContainer)
-        btn.Size = UDim2.new(1, 0, 0, 26)
-        btn.BackgroundColor3 = isSelected and THEME.AccentPurple or THEME.CardBg
-        btn.Text = "   " .. icon .. "  " .. name
-        btn.BackgroundTransparency = isSelected and 0.2 or 1
-        btn.TextColor3 = isSelected and THEME.TextWhite or THEME.TextGray
-        btn.Font = isSelected and Enum.Font.GothamBold or Enum.Font.GothamMedium
-        btn.TextSize = 8
-        btn.TextXAlignment = Enum.TextXAlignment.Left
-        Instance.new("UICorner", btn).CornerRadius = UDim.new(0, 6)
-
-        btn.MouseButton1Click:Connect(function()
-            for i, p in ipairs(AllPages) do
-                p.Visible = (i == index)
-            end
-            for _, t in ipairs(TabButtons) do
-                if t.Btn == btn then
-                    t.Btn.BackgroundColor3 = THEME.AccentPurple
-                    t.Btn.BackgroundTransparency = 0.2
-                    t.Btn.TextColor3 = THEME.TextWhite
-                    t.Btn.Font = Enum.Font.GothamBold
-                else
-                    t.Btn.BackgroundColor3 = THEME.CardBg
-                    t.Btn.BackgroundTransparency = 1
-                    t.Btn.TextColor3 = THEME.TextGray
-                    t.Btn.Font = Enum.Font.GothamMedium
-                end
-            end
-        end)
-        table.insert(TabButtons, {Btn = btn, Index = index})
-    end
-
-    CreateTab("Dashboard", "🏠", 1, true)
-    CreateTab("Player", "👤", 2, false)
-    CreateTab("Visuals", "👁️", 3, false)
-    CreateTab("World", "🌍", 4, false)
-    CreateTab("Utility", "⚡", 5, false)
-    CreateTab("Miscellaneous", "📦", 6, false)
-    CreateTab("Theme", "🎨", 7, false)
-    CreateTab("Settings", "⚙️", 8, false)
 
     local dragging, dragStart, startPos
     Header.InputBegan:Connect(function(input)
