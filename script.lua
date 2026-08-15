@@ -1,6 +1,17 @@
 --[[
     ================================================================
-    THIS SCRIPT IS OBFUSCATED.
+    [ SCRIPT INFORMATION ]
+    Project: Custom Script
+    Author: OYB
+    YouTube: https://www.youtube.com/channel/UCAlXXV1Hbvf7WbfXARuVtiQ
+    
+    [ TERMS AND CONDITIONS ]
+    - You ARE allowed to use and modify this script for your own games.
+    - You ARE NOT allowed to re-upload, redistribute, or claim 
+      ownership of this script.
+    - Removing or altering these credits is strictly prohibited.
+    
+    Copyright (c) 2026 OYB. All rights reserved.
     ================================================================
 ]]
 
@@ -150,7 +161,7 @@ local function OpenMainHub()
 
     local ToggleStroke = Instance.new("UIStroke", ToggleContainer)
     ToggleStroke.Color = THEME.AccentPurple
-    ToggleStroke.Thickness = 1
+    ToggleStroke.Thickness = 1.2
 
     local ToggleTextContainer = Instance.new("TextLabel", ToggleContainer)
     ToggleTextContainer.Size = UDim2.new(1, -85, 1, 0)
@@ -478,15 +489,13 @@ local function OpenMainHub()
     PingText.TextSize = 7
     PingText.TextXAlignment = Enum.TextXAlignment.Left
 
-    -- Rainbow Stroke Animation Loop
+    -- Rainbow Stroke Animation Loop (Only for the Floating Widget Stroke)
     task.spawn(function()
         local hue = 0
         while ScreenGui and ScreenGui.Parent do
             hue = (hue + 0.005) % 1
             local rainbowColor = Color3.fromHSV(hue, 1, 1)
-            MainStroke.Color = rainbowColor
             ToggleStroke.Color = rainbowColor
-            ModalStroke.Color = rainbowColor
             task.wait()
         end
     end)
