@@ -1,4 +1,19 @@
-
+--[[
+    ================================================================
+    [ SCRIPT INFORMATION ]
+    Project: Custom Script
+    Author: OYB
+    YouTube: https://www.youtube.com/channel/UCAlXXV1Hbvf7WbfXARuVtiQ
+    
+    [ TERMS AND CONDITIONS ]
+    - You ARE allowed to use and modify this script for your own games.
+    - You ARE NOT allowed to re-upload, redistribute, or claim 
+      ownership of this script.
+    - Removing or altering these credits is strictly prohibited.
+    
+    Copyright (c) 2026 OYB. All rights reserved.
+    ================================================================
+]]
 
 -- ⚠️ IMPORTANT: Put this code at the VERY TOP of your Main Script (before obfuscating) ⚠️
 
@@ -29,6 +44,7 @@ local Players = game:GetService("Players")
 local UserInputService = game:GetService("UserInputService")
 local TweenService = game:GetService("TweenService")
 local CoreGui = game:GetService("CoreGui")
+local RunService = game:GetService("RunService")
 
 local LocalPlayer = Players.LocalPlayer
 local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
@@ -66,7 +82,7 @@ local function OpenMainHub()
     Instance.new("UICorner", MainFrame).CornerRadius = UDim.new(0, 12)
 
     local MainStroke = Instance.new("UIStroke", MainFrame)
-    MainStroke.Color = Color3.fromRGB(45, 28, 80)
+    MainStroke.Color = THEME.AccentPurple
     MainStroke.Thickness = 1.2
 
     local SettingsModal = Instance.new("Frame", ScreenGui)
@@ -472,6 +488,19 @@ local function OpenMainHub()
     PingText.Font = Enum.Font.Gotham
     PingText.TextSize = 7
     PingText.TextXAlignment = Enum.TextXAlignment.Left
+
+    -- Rainbow Stroke Animation Loop
+    task.spawn(function()
+        local hue = 0
+        while ScreenGui and ScreenGui.Parent do
+            hue = (hue + 0.005) % 1
+            local rainbowColor = Color3.fromHSV(hue, 1, 1)
+            MainStroke.Color = rainbowColor
+            ToggleStroke.Color = rainbowColor
+            ModalStroke.Color = rainbowColor
+            task.wait()
+        end
+    end)
 
     local dragging, dragStart, startPos
     Header.InputBegan:Connect(function(input)
