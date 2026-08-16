@@ -1,19 +1,11 @@
-local ProtectionConfig = {
-    SecretKey = "vheo123",
-    HubName = "SIE Y HUB"
-}
-
+local ProtectionConfig = { SecretKey = "vheo123", HubName = "SIE Y HUB" }
 if not _G[ProtectionConfig.SecretKey] then
     local player = game:GetService("Players").LocalPlayer
     if player then
-        player:Kick("\nðŸ›¡ï¸ Unauthorized Execution ðŸ›¡ï¸\n\nPlease use the official Key System to run " .. ProtectionConfig.HubName)
+        player:Kick("\n🛡️ Unauthorized Execution 🛡️\n\nPlease use the official Key System to run " .. ProtectionConfig.HubName)
     end
-    return -- Stops the rest of the script from loading!
+    return
 end
-
--------------------------------------------------------------------------------
--- MAIN SCRIPT CODE
--------------------------------------------------------------------------------
 
 print(ProtectionConfig.HubName .. " Loaded Successfully!")
 
@@ -21,12 +13,13 @@ local Players = game:GetService("Players")
 local UserInputService = game:GetService("UserInputService")
 local TweenService = game:GetService("TweenService")
 local CoreGui = game:GetService("CoreGui")
-
 local LocalPlayer = Players.LocalPlayer
 local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
 
 local successGui, parentGui = pcall(function() return CoreGui end)
-if not successGui or not parentGui then parentGui = PlayerGui end
+if not successGui or not parentGui then
+    parentGui = PlayerGui
+end
 
 local function OpenMainHub()
     local ScreenGuiName = "SIE Y CUSTOM HUB"
@@ -100,7 +93,6 @@ local function OpenMainHub()
     ModalCloseBtn.TextSize = 8
     ModalCloseBtn.ZIndex = 11
     Instance.new("UICorner", ModalCloseBtn).CornerRadius = UDim.new(0, 4)
-
     ModalCloseBtn.MouseButton1Click:Connect(function()
         SettingsModal.Visible = false
     end)
@@ -199,6 +191,7 @@ local function OpenMainHub()
     AddModalToggle(ModalContent, "Hardware Acceleration", "Gamitin ang GPU para sa mas malinis na UI animations.", true)
     AddModalToggle(ModalContent, "Save Config on Exit", "I-save agad ang current toggles mo.", false)
 
+    -- MINIMIZED / FLOATING CONTAINER WITH RAINBOW STROKE
     local ToggleContainer = Instance.new("Frame", ScreenGui)
     ToggleContainer.Size = UDim2.new(0, 195, 0, 42)
     ToggleContainer.Position = UDim2.new(0, 20, 0, 120)
@@ -209,13 +202,23 @@ local function OpenMainHub()
 
     local ToggleStroke = Instance.new("UIStroke", ToggleContainer)
     ToggleStroke.Color = THEME.AccentPurple
-    ToggleStroke.Thickness = 1
+    ToggleStroke.Thickness = 1.5
+
+    -- Rainbow Loop specifically for ToggleContainer stroke when minimized
+    task.spawn(function()
+        while true do
+            if ToggleContainer.Visible then
+                ToggleStroke.Color = Color3.fromHSV(tick() % 5 / 5, 1, 1)
+            end
+            task.wait(0.1)
+        end
+    end)
 
     local ToggleTextContainer = Instance.new("TextLabel", ToggleContainer)
     ToggleTextContainer.Size = UDim2.new(1, -85, 1, 0)
     ToggleTextContainer.Position = UDim2.new(0, 12, 0, 0)
     ToggleTextContainer.BackgroundTransparency = 1
-    ToggleTextContainer.Text = "Sie Y Hub\nPet Simulator 99"
+    ToggleTextContainer.Text = "Sie Y Hub\nAuto Tycoon"
     ToggleTextContainer.TextColor3 = THEME.TextWhite
     ToggleTextContainer.Font = Enum.Font.GothamBold
     ToggleTextContainer.TextSize = 8.5
@@ -234,12 +237,11 @@ local function OpenMainHub()
         return btn
     end
 
-    local ToggleSettingBtn = CreateMiniBtn("âš™", -60)
+    local ToggleSettingBtn = CreateMiniBtn("⚙", -60)
     local ToggleCloseBtn = CreateMiniBtn("X", -30)
 
     local tDragging, tDragStart, tStartPos, isDragging = false, nil, nil, false
     local dragThreshold = 5
-
     ToggleContainer.InputBegan:Connect(function(input)
         if input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseButton1 then
             tDragging = true
@@ -272,7 +274,6 @@ local function OpenMainHub()
     ToggleSettingBtn.MouseButton1Click:Connect(function()
         SettingsModal.Visible = not SettingsModal.Visible
     end)
-
     ToggleCloseBtn.MouseButton1Click:Connect(function()
         ScreenGui:Destroy()
     end)
@@ -317,7 +318,6 @@ local function OpenMainHub()
     MinBtn.Font = Enum.Font.GothamBold
     MinBtn.TextSize = 8
     Instance.new("UICorner", MinBtn).CornerRadius = UDim.new(0, 6)
-
     MinBtn.MouseButton1Click:Connect(function()
         MainFrame.Visible = false
         ToggleContainer.Visible = true
@@ -332,7 +332,6 @@ local function OpenMainHub()
     CloseBtn.Font = Enum.Font.GothamBold
     CloseBtn.TextSize = 8
     Instance.new("UICorner", CloseBtn).CornerRadius = UDim.new(0, 6)
-
     CloseBtn.MouseButton1Click:Connect(function()
         ScreenGui:Destroy()
     end)
@@ -386,7 +385,7 @@ local function OpenMainHub()
     GameTitleLabel.Position = UDim2.new(0, 4, 0, 28)
     GameTitleLabel.Size = UDim2.new(1, -4, 0, 12)
     GameTitleLabel.BackgroundTransparency = 1
-    GameTitleLabel.Text = "Pet Simulator 99"
+    GameTitleLabel.Text = "Tycoon Automation"
     GameTitleLabel.TextColor3 = THEME.AccentPurple
     GameTitleLabel.Font = Enum.Font.GothamBold
     GameTitleLabel.TextSize = 8
@@ -396,9 +395,8 @@ local function OpenMainHub()
     NavContainer.Size = UDim2.new(1, -6, 1, -100)
     NavContainer.Position = UDim2.new(0, 3, 0, 52)
     NavContainer.BackgroundTransparency = 1
-    NavContainer.CanvasSize = UDim2.new(0, 0, 0, 220)
+    NavContainer.CanvasSize = UDim2.new(0, 0, 0, 260)
     NavContainer.ScrollBarThickness = 2
-
     local NavLayout = Instance.new("UIListLayout", NavContainer)
     NavLayout.Padding = UDim.new(0, 2)
 
@@ -439,7 +437,6 @@ local function OpenMainHub()
 
     local PagesContainer = Instance.new("Folder", MainFrame)
     PagesContainer.Name = "PagesContainer"
-
     local AllPages = {}
 
     local function CreatePage()
@@ -455,9 +452,11 @@ local function OpenMainHub()
         return page
     end
 
+    -- PAGES SETUP
     local pDashboard = CreatePage()
     pDashboard.Visible = true
 
+    -- Dashboard Layout (No features here, just welcome card & status)
     local InfoRow = Instance.new("Frame", pDashboard)
     InfoRow.Size = UDim2.new(1, -6, 0, 50)
     InfoRow.BackgroundTransparency = 1
@@ -471,7 +470,7 @@ local function OpenMainHub()
     WelPrefix.Size = UDim2.new(1, -10, 0, 12)
     WelPrefix.Position = UDim2.new(0, 8, 0, 6)
     WelPrefix.BackgroundTransparency = 1
-    WelPrefix.Text = "Good evening,"
+    WelPrefix.Text = "Welcome back,"
     WelPrefix.TextColor3 = THEME.TextWhite
     WelPrefix.Font = Enum.Font.GothamMedium
     WelPrefix.TextSize = 7.5
@@ -491,7 +490,7 @@ local function OpenMainHub()
     WelDiscord.Size = UDim2.new(1, -10, 0, 10)
     WelDiscord.Position = UDim2.new(0, 8, 0, 34)
     WelDiscord.BackgroundTransparency = 1
-    WelDiscord.Text = "discord.gg/test"
+    WelDiscord.Text = "discord.gg/sieyhub"
     WelDiscord.TextColor3 = Color3.fromRGB(100, 95, 120)
     WelDiscord.Font = Enum.Font.Gotham
     WelDiscord.TextSize = 6.5
@@ -539,83 +538,12 @@ local function OpenMainHub()
     PingText.TextSize = 7
     PingText.TextXAlignment = Enum.TextXAlignment.Left
 
-    local GridContainer = Instance.new("Frame", pDashboard)
-    GridContainer.Size = UDim2.new(1, -6, 0, 240)
-    GridContainer.BackgroundTransparency = 1
-
-    local UIGrid = Instance.new("UIGridLayout", GridContainer)
-    UIGrid.CellSize = UDim2.new(0.49, 0, 0, 54)
-    UIGrid.CellPadding = UDim2.new(0.02, 0, 0, 6)
-
-    local function AddGridToggle(parent, name, defaultState)
-        local card = Instance.new("Frame", parent)
-        card.BackgroundColor3 = THEME.CardBg
-        Instance.new("UICorner", card).CornerRadius = UDim.new(0, 6)
-
-        local nameLbl = Instance.new("TextLabel", card)
-        nameLbl.Size = UDim2.new(1, -8, 0, 16)
-        nameLbl.Position = UDim2.new(0, 8, 0, 6)
-        nameLbl.BackgroundTransparency = 1
-        nameLbl.Text = name
-        nameLbl.TextColor3 = THEME.TextWhite
-        nameLbl.Font = Enum.Font.GothamBold
-        nameLbl.TextSize = 10
-        nameLbl.TextXAlignment = Enum.TextXAlignment.Left
-
-        local stateLbl = Instance.new("TextLabel", card)
-        stateLbl.Size = UDim2.new(1, -8, 0, 12)
-        stateLbl.Position = UDim2.new(0, 8, 0, 22)
-        stateLbl.BackgroundTransparency = 1
-        stateLbl.Text = defaultState and "Enabled" or "Disabled"
-        stateLbl.TextColor3 = defaultState and THEME.SuccessGreen or THEME.TextGray
-        stateLbl.Font = Enum.Font.Gotham
-        stateLbl.TextSize = 8
-        stateLbl.TextXAlignment = Enum.TextXAlignment.Left
-
-        local switch = Instance.new("TextButton", card)
-        switch.Size = UDim2.new(0, 26, 0, 13)
-        switch.Position = UDim2.new(1, -30, 1, -18)
-        switch.BackgroundColor3 = defaultState and THEME.AccentPurple or Color3.fromRGB(40, 40, 55)
-        switch.Text = ""
-        Instance.new("UICorner", switch).CornerRadius = UDim.new(1, 0)
-
-        local dot = Instance.new("Frame", switch)
-        dot.Size = UDim2.new(0, 9, 0, 9)
-        dot.Position = defaultState and UDim2.new(1, -11, 0.5, -4.5) or UDim2.new(0, 2, 0.5, -4.5)
-        dot.BackgroundColor3 = THEME.TextWhite
-        Instance.new("UICorner", dot).CornerRadius = UDim.new(1, 0)
-
-        local active = defaultState
-        switch.MouseButton1Click:Connect(function()
-            active = not active
-            stateLbl.Text = active and "Enabled" or "Disabled"
-            stateLbl.TextColor3 = active and THEME.SuccessGreen or THEME.TextGray
-            if active then
-                TweenService:Create(switch, TweenInfo.new(0.2), {BackgroundColor3 = THEME.AccentPurple}):Play()
-                TweenService:Create(dot, TweenInfo.new(0.2), {Position = UDim2.new(1, -11, 0.5, -4.5)}):Play()
-            else
-                TweenService:Create(switch, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(40, 40, 55)}):Play()
-                TweenService:Create(dot, TweenInfo.new(0.2), {Position = UDim2.new(0, 2, 0.5, -4.5)}):Play()
-            end
-        end)
-    end
-
-    AddGridToggle(GridContainer, "Infinite Jump", true)
-    AddGridToggle(GridContainer, "Noclip", false)
-    AddGridToggle(GridContainer, "Fly", false)
-    AddGridToggle(GridContainer, "Speed Boost", true)
-    AddGridToggle(GridContainer, "God Mode", false)
-    AddGridToggle(GridContainer, "ESP", true)
-    AddGridToggle(GridContainer, "Auto Farm", false)
-    AddGridToggle(GridContainer, "Anti Fall", true)
-
-    local pPlayer = CreatePage()
-    local pVisuals = CreatePage()
-    local pWorld = CreatePage()
-    local pUtility = CreatePage()
-    local pMisc = CreatePage()
-    local pTheme = CreatePage()
-    local pSettings = CreatePage()
+    -- Dedicated Feature Pages
+    local pFarming = CreatePage()  -- Ore & Drills
+    local pCrates = CreatePage()   -- Crates & Furnace
+    local pUpgrades = CreatePage() -- Upgrades (Spending Money)
+    local pBoosts = CreatePage()   -- Boosts & Free Money
+    local pSettings = CreatePage() -- Settings / Destroy UI
 
     local function AddSimpleToggle(parent, name, defaultState)
         local card = Instance.new("Frame", parent)
@@ -659,71 +587,30 @@ local function OpenMainHub()
         end)
     end
 
-    local function AddSlider(parent, name, min, max, default)
-        local card = Instance.new("Frame", parent)
-        card.Size = UDim2.new(1, -6, 0, 42)
-        card.BackgroundColor3 = THEME.CardBg
-        Instance.new("UICorner", card).CornerRadius = UDim.new(0, 6)
+    -- POPULATE FEATURES TO TABS
+    -- 1. Ore & Drills
+    AddSimpleToggle(pFarming, "Auto Roll (autoRoll)", false)
+    AddSimpleToggle(pFarming, "Auto Buy Ore (autoBuyOre)", false)
+    AddSimpleToggle(pFarming, "Auto Equip Best (autoEquip)", false)
+    AddSimpleToggle(pFarming, "Auto Ore Level (autoOreLevel)", false)
 
-        local nameLbl = Instance.new("TextLabel", card)
-        nameLbl.Size = UDim2.new(1, -48, 0, 16)
-        nameLbl.Position = UDim2.new(0, 8, 0, 4)
-        nameLbl.BackgroundTransparency = 1
-        nameLbl.Text = name
-        nameLbl.TextColor3 = THEME.TextWhite
-        nameLbl.Font = Enum.Font.GothamBold
-        nameLbl.TextSize = 9
-        nameLbl.TextXAlignment = Enum.TextXAlignment.Left
+    -- 2. Crates & Furnace
+    AddSimpleToggle(pCrates, "Auto Pickup (autoPickup)", false)
+    AddSimpleToggle(pCrates, "Auto Sell (autoSell)", false)
+    AddSimpleToggle(pCrates, "Auto Furnace (autoFurnace)", false)
 
-        local valLbl = Instance.new("TextLabel", card)
-        valLbl.Size = UDim2.new(0, 40, 0, 16)
-        valLbl.Position = UDim2.new(1, -48, 0, 4)
-        valLbl.BackgroundTransparency = 1
-        valLbl.Text = tostring(default)
-        valLbl.TextColor3 = THEME.AccentPurple
-        valLbl.Font = Enum.Font.GothamBold
-        valLbl.TextSize = 9
-        valLbl.TextXAlignment = Enum.TextXAlignment.Right
+    -- 3. Upgrades (Spending Money)
+    AddSimpleToggle(pUpgrades, "Auto Drill Upgrades (autoUpgrade)", false)
+    AddSimpleToggle(pUpgrades, "Auto Roller Upgrades (autoRoller)", false)
+    AddSimpleToggle(pUpgrades, "Auto Tunnels (autoTunnels)", false)
+    AddSimpleToggle(pUpgrades, "Auto Floors (autoFloors)", false)
 
-        local sliderBar = Instance.new("Frame", card)
-        sliderBar.Size = UDim2.new(1, -16, 0, 6)
-        sliderBar.Position = UDim2.new(0, 8, 0, 26)
-        sliderBar.BackgroundColor3 = Color3.fromRGB(40, 35, 55)
-        Instance.new("UICorner", sliderBar).CornerRadius = UDim.new(1, 0)
+    -- 4. Boosts & Free Money
+    AddSimpleToggle(pBoosts, "Auto Boost Pedestals (autoBoost)", false)
+    AddSimpleToggle(pBoosts, "Auto Growth Gems (autoGear)", false)
+    AddSimpleToggle(pBoosts, "Auto Rewards (autoRewards)", false)
 
-        local fill = Instance.new("Frame", sliderBar)
-        fill.Size = UDim2.new((default - min) / (max - min), 0, 1, 0)
-        fill.BackgroundColor3 = THEME.AccentPurple
-        Instance.new("UICorner", fill).CornerRadius = UDim.new(1, 0)
-
-        local btn = Instance.new("TextButton", sliderBar)
-        btn.Size = UDim2.new(1, 0, 1, 0)
-        btn.BackgroundTransparency = 1
-        btn.Text = ""
-
-        local dragging = false
-        btn.InputBegan:Connect(function(input)
-            if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-                dragging = true
-            end
-        end)
-
-        UserInputService.InputEnded:Connect(function(input)
-            if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-                dragging = false
-            end
-        end)
-
-        UserInputService.InputChanged:Connect(function(input)
-            if dragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
-                local pos = math.clamp((input.Position.X - sliderBar.AbsolutePosition.X) / sliderBar.AbsoluteSize.X, 0, 1)
-                local val = math.floor(min + (max - min) * pos)
-                fill.Size = UDim2.new(pos, 0, 1, 0)
-                valLbl.Text = tostring(val)
-            end
-        end)
-    end
-
+    -- 5. Settings Tab
     local function AddButton(parent, name, callback)
         local card = Instance.new("Frame", parent)
         card.Size = UDim2.new(1, -6, 0, 32)
@@ -733,63 +620,34 @@ local function OpenMainHub()
         local btn = Instance.new("TextButton", card)
         btn.Size = UDim2.new(1, 0, 1, 0)
         btn.BackgroundTransparency = 1
-        btn.Text = "   " .. name
+        btn.Text = " " .. name
         btn.TextColor3 = THEME.TextWhite
         btn.Font = Enum.Font.GothamBold
         btn.TextSize = 9
         btn.TextXAlignment = Enum.TextXAlignment.Left
-
         btn.MouseButton1Click:Connect(function()
             if callback then callback() end
         end)
     end
 
-    AddSimpleToggle(pPlayer, "WalkSpeed Multiplier", true)
-    AddSlider(pPlayer, "WalkSpeed Value", 16, 250, 50)
-    AddSimpleToggle(pPlayer, "JumpPower Modifier", false)
-    AddSlider(pPlayer, "JumpPower Value", 50, 300, 100)
-
-    AddSimpleToggle(pVisuals, "ESP Box", true)
-    AddSimpleToggle(pVisuals, "Fullbright Lighting", true)
-    AddSlider(pVisuals, "FOV Changer", 70, 120, 90)
-
-    AddSimpleToggle(pWorld, "Remove Fog", true)
-    AddSimpleToggle(pWorld, "Custom Time Lock", false)
-    AddButton(pWorld, "Instant Server Hop", function() print("Hopping...") end)
-
-    AddSimpleToggle(pUtility, "Kill Aura", false)
-    AddSimpleToggle(pUtility, "Anti AFK Kick", true)
-    AddButton(pUtility, "Rejoin Server", function()
-        game:GetService("TeleportService"):Teleport(game.PlaceId, LocalPlayer)
+    AddSimpleToggle(pSettings, "Auto Save Configuration", true)
+    AddButton(pSettings, "Destroy UI", function()
+        ScreenGui:Destroy()
     end)
 
-    AddSimpleToggle(pMisc, "Server Rejoin", false)
-    AddSimpleToggle(pMisc, "FPS Cap Unlocker", true)
-    AddButton(pMisc, "Copy Discord Invite", function() print("Copied") end)
-
-    AddSimpleToggle(pTheme, "Dark Theme Mode", true)
-    AddSlider(pTheme, "UI Transparency", 0, 50, 10)
-    AddButton(pTheme, "Reset to Default Theme", function() print("Theme Reset") end)
-
-    AddSimpleToggle(pSettings, "Auto Save Configuration", true)
-    AddButton(pSettings, "Destroy UI", function() ScreenGui:Destroy() end)
-
     table.insert(AllPages, pDashboard)
-    table.insert(AllPages, pPlayer)
-    table.insert(AllPages, pVisuals)
-    table.insert(AllPages, pWorld)
-    table.insert(AllPages, pUtility)
-    table.insert(AllPages, pMisc)
-    table.insert(AllPages, pTheme)
+    table.insert(AllPages, pFarming)
+    table.insert(AllPages, pCrates)
+    table.insert(AllPages, pUpgrades)
+    table.insert(AllPages, pBoosts)
     table.insert(AllPages, pSettings)
 
     local TabButtons = {}
-
     local function CreateTab(name, icon, index, isSelected)
         local btn = Instance.new("TextButton", NavContainer)
         btn.Size = UDim2.new(1, 0, 0, 26)
         btn.BackgroundColor3 = isSelected and THEME.AccentPurple or THEME.CardBg
-        btn.Text = "   " .. icon .. "  " .. name
+        btn.Text = " " .. icon .. " " .. name
         btn.BackgroundTransparency = isSelected and 0.2 or 1
         btn.TextColor3 = isSelected and THEME.TextWhite or THEME.TextGray
         btn.Font = isSelected and Enum.Font.GothamBold or Enum.Font.GothamMedium
@@ -818,14 +676,13 @@ local function OpenMainHub()
         table.insert(TabButtons, {Btn = btn, Index = index})
     end
 
-    CreateTab("Dashboard", "ðŸ ", 1, true)
-    CreateTab("Player", "ðŸ‘¤", 2, false)
-    CreateTab("Visuals", "ðŸ‘ï¸", 3, false)
-    CreateTab("World", "ðŸŒ", 4, false)
-    CreateTab("Utility", "âš¡", 5, false)
-    CreateTab("Miscellaneous", "ðŸ“¦", 6, false)
-    CreateTab("Theme", "ðŸŽ¨", 7, false)
-    CreateTab("Settings", "âš™ï¸", 8, false)
+    -- NAVIGATION TABS SETUP
+    CreateTab("Dashboard", "🏠", 1, true)
+    CreateTab("Ore & Drills", "⛏️", 2, false)
+    CreateTab("Crates & Furnace", "📦", 3, false)
+    CreateTab("Upgrades", "🔧", 4, false)
+    CreateTab("Boosts & Money", "💎", 5, false)
+    CreateTab("Settings", "⚙️", 6, false)
 
     local dragging, dragStart, startPos
     Header.InputBegan:Connect(function(input)
