@@ -1,5 +1,3 @@
--- Codes from Vheoo.
-
 local ProtectionConfig = {
     SecretKey = "vheo123",
     HubName = "SIE Y HUB"
