@@ -44,18 +44,18 @@ local function OpenMainHub()
     end
 
     ---------------------------------------------------------------------------
-    -- DARK GRAY THEME
+    -- ORIGINAL PURPLE / VIOLET THEME
     ---------------------------------------------------------------------------
 
     local THEME = {
-        Background = Color3.fromRGB(33, 33, 33),      -- #212121
-        SidebarBg = Color3.fromRGB(30, 30, 30),
-        CardBg = Color3.fromRGB(38, 38, 38),
+        Background = Color3.fromRGB(13, 11, 20),
+        SidebarBg = Color3.fromRGB(17, 14, 26),
+        CardBg = Color3.fromRGB(22, 19, 34),
 
-        AccentPurple = Color3.fromRGB(66, 66, 66),    -- #424242
+        AccentPurple = Color3.fromRGB(139, 58, 246),
 
         TextWhite = Color3.fromRGB(255, 255, 255),
-        TextGray = Color3.fromRGB(170, 170, 170),
+        TextGray = Color3.fromRGB(140, 135, 160),
 
         SuccessGreen = Color3.fromRGB(34, 197, 94)
     }
@@ -86,7 +86,7 @@ local function OpenMainHub()
 
     local MainStroke = Instance.new("UIStroke")
     MainStroke.Parent = MainFrame
-    MainStroke.Color = Color3.fromRGB(66, 66, 66) -- #424242
+    MainStroke.Color = Color3.fromRGB(45, 28, 80)
     MainStroke.Thickness = 1.2
 
     ---------------------------------------------------------------------------
@@ -106,7 +106,7 @@ local function OpenMainHub()
 
     local ModalStroke = Instance.new("UIStroke")
     ModalStroke.Parent = SettingsModal
-    ModalStroke.Color = Color3.fromRGB(66, 66, 66) -- #424242
+    ModalStroke.Color = THEME.AccentPurple
     ModalStroke.Thickness = 1.5
 
     local ModalHeader = Instance.new("Frame")
@@ -245,7 +245,9 @@ local function OpenMainHub()
         switch.Size = UDim2.new(0, 24, 0, 12)
         switch.Position = UDim2.new(1, -32, 0.5, -6)
         switch.BackgroundColor3 =
-            defaultState and THEME.AccentPurple or Color3.fromRGB(55, 55, 55)
+            defaultState
+            and THEME.AccentPurple
+            or Color3.fromRGB(40, 40, 55)
         switch.Text = ""
         switch.ZIndex = 11
 
@@ -295,7 +297,7 @@ local function OpenMainHub()
                     switch,
                     TweenInfo.new(0.2),
                     {
-                        BackgroundColor3 = Color3.fromRGB(55, 55, 55)
+                        BackgroundColor3 = Color3.fromRGB(40, 40, 55)
                     }
                 ):Play()
 
@@ -332,7 +334,7 @@ local function OpenMainHub()
     )
 
     ---------------------------------------------------------------------------
-    -- MINIMIZED TOGGLE
+    -- FLOATING / MINIMIZED UI
     ---------------------------------------------------------------------------
 
     local ToggleContainer = Instance.new("Frame")
@@ -350,16 +352,37 @@ local function OpenMainHub()
     ToggleStroke.Color = THEME.AccentPurple
     ToggleStroke.Thickness = 1
 
+    ---------------------------------------------------------------------------
+    -- OPTIONAL FLOATING IMAGE
+    ---------------------------------------------------------------------------
+
+    local FloatingImage = Instance.new("ImageLabel")
+    FloatingImage.Parent = ToggleContainer
+    FloatingImage.Size = UDim2.new(0, 28, 0, 28)
+    FloatingImage.Position = UDim2.new(0, 7, 0.5, -14)
+    FloatingImage.BackgroundTransparency = 1
+    FloatingImage.Image = "rbxassetid://YOUR_IMAGE_ID"
+
+    Instance.new("UICorner", FloatingImage).CornerRadius = UDim.new(1, 0)
+
+    ---------------------------------------------------------------------------
+    -- FLOATING TEXT
+    ---------------------------------------------------------------------------
+
     local ToggleTextContainer = Instance.new("TextLabel")
     ToggleTextContainer.Parent = ToggleContainer
-    ToggleTextContainer.Size = UDim2.new(1, -85, 1, 0)
-    ToggleTextContainer.Position = UDim2.new(0, 12, 0, 0)
+    ToggleTextContainer.Size = UDim2.new(1, -115, 1, 0)
+    ToggleTextContainer.Position = UDim2.new(0, 42, 0, 0)
     ToggleTextContainer.BackgroundTransparency = 1
     ToggleTextContainer.Text = "Sie Y Hub\nPet Simulator 99"
     ToggleTextContainer.TextColor3 = THEME.TextWhite
     ToggleTextContainer.Font = Enum.Font.GothamBold
     ToggleTextContainer.TextSize = 8.5
     ToggleTextContainer.TextXAlignment = Enum.TextXAlignment.Left
+
+    ---------------------------------------------------------------------------
+    -- FLOATING BUTTONS
+    ---------------------------------------------------------------------------
 
     local function CreateMiniBtn(text, offset)
 
@@ -382,7 +405,7 @@ local function OpenMainHub()
     local ToggleCloseBtn = CreateMiniBtn("X", -30)
 
     ---------------------------------------------------------------------------
-    -- TOGGLE DRAGGING
+    -- FLOATING DRAGGING
     ---------------------------------------------------------------------------
 
     local tDragging = false
@@ -731,7 +754,7 @@ local function OpenMainHub()
     WelDiscord.Position = UDim2.new(0, 8, 0, 34)
     WelDiscord.BackgroundTransparency = 1
     WelDiscord.Text = "discord.gg/test"
-    WelDiscord.TextColor3 = THEME.TextGray
+    WelDiscord.TextColor3 = Color3.fromRGB(100, 95, 120)
     WelDiscord.Font = Enum.Font.Gotham
     WelDiscord.TextSize = 6.5
     WelDiscord.TextXAlignment = Enum.TextXAlignment.Left
@@ -835,7 +858,9 @@ local function OpenMainHub()
         switch.Size = UDim2.new(0, 26, 0, 13)
         switch.Position = UDim2.new(1, -30, 1, -18)
         switch.BackgroundColor3 =
-            defaultState and THEME.AccentPurple or Color3.fromRGB(55, 55, 55)
+            defaultState
+            and THEME.AccentPurple
+            or Color3.fromRGB(40, 40, 55)
         switch.Text = ""
 
         Instance.new("UICorner", switch).CornerRadius = UDim.new(1, 0)
@@ -885,7 +910,7 @@ local function OpenMainHub()
                     switch,
                     TweenInfo.new(0.2),
                     {
-                        BackgroundColor3 = Color3.fromRGB(55, 55, 55)
+                        BackgroundColor3 = Color3.fromRGB(40, 40, 55)
                     }
                 ):Play()
 
@@ -950,7 +975,9 @@ local function OpenMainHub()
         switch.Size = UDim2.new(0, 24, 0, 12)
         switch.Position = UDim2.new(1, -30, 0.5, -6)
         switch.BackgroundColor3 =
-            defaultState and THEME.AccentPurple or Color3.fromRGB(55, 55, 55)
+            defaultState
+            and THEME.AccentPurple
+            or Color3.fromRGB(40, 40, 55)
         switch.Text = ""
 
         Instance.new("UICorner", switch).CornerRadius = UDim.new(1, 0)
@@ -996,7 +1023,7 @@ local function OpenMainHub()
                     switch,
                     TweenInfo.new(0.2),
                     {
-                        BackgroundColor3 = Color3.fromRGB(55, 55, 55)
+                        BackgroundColor3 = Color3.fromRGB(40, 40, 55)
                     }
                 ):Play()
 
@@ -1050,7 +1077,7 @@ local function OpenMainHub()
         sliderBar.Parent = card
         sliderBar.Size = UDim2.new(1, -16, 0, 6)
         sliderBar.Position = UDim2.new(0, 8, 0, 26)
-        sliderBar.BackgroundColor3 = Color3.fromRGB(55, 55, 55)
+        sliderBar.BackgroundColor3 = Color3.fromRGB(40, 35, 55)
 
         Instance.new("UICorner", sliderBar).CornerRadius = UDim.new(1, 0)
 
@@ -1152,7 +1179,6 @@ local function OpenMainHub()
 
     AddSimpleToggle(pPlayer, "WalkSpeed Multiplier", true)
     AddSlider(pPlayer, "WalkSpeed Value", 16, 250, 50)
-
     AddSimpleToggle(pPlayer, "JumpPower Modifier", false)
     AddSlider(pPlayer, "JumpPower Value", 50, 300, 100)
 
@@ -1252,6 +1278,7 @@ local function OpenMainHub()
             or THEME.CardBg
 
         btn.Text = "   " .. icon .. "  " .. name
+
         btn.BackgroundTransparency =
             isSelected and 0.2 or 1
 
@@ -1306,12 +1333,12 @@ local function OpenMainHub()
 
     CreateTab("Dashboard", "🏠", 1, true)
     CreateTab("Player", "👤", 2, false)
-    CreateTab("Visuals", "👁", 3, false)
+    CreateTab("Visuals", "👁️", 3, false)
     CreateTab("World", "🌍", 4, false)
     CreateTab("Utility", "⚡", 5, false)
     CreateTab("Miscellaneous", "📦", 6, false)
     CreateTab("Theme", "🎨", 7, false)
-    CreateTab("Settings", "⚙", 8, false)
+    CreateTab("Settings", "⚙️", 8, false)
 
     ---------------------------------------------------------------------------
     -- MAIN WINDOW DRAGGING
