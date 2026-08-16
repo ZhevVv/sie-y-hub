@@ -21,4 +21,4 @@ local function fetchAndRun(url)
 end
 
 -- Palitan mo ng RAW link mo
-fetchAndRun("http://127.0.0.1:8080/raw/WBQmQr5o2ZcekvWEBgWzdcj2")
+fetchAndRun("http://127.0.0.1:8080/raw/fIfKgBNaq9TdkI2UnAnTjTS7")
