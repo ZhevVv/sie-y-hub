@@ -1,4 +1,3 @@
--- Loader - Ito ang gagamitin mo sa Roblox
 local function fetchAndRun(url)
     local success, result = pcall(function()
         return game:HttpGet(url)
