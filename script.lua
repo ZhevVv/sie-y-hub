@@ -1,19 +1,4 @@
---[[
-    ================================================================
-    [ SCRIPT INFORMATION ]
-    Project: Custom Script
-    Author: OYB
-    YouTube: https://www.youtube.com/channel/UCAlXXV1Hbvf7WbfXARuVtiQ
-    
-    [ TERMS AND CONDITIONS ]
-    - You ARE allowed to use and modify this script for your own games.
-    - You ARE NOT allowed to re-upload, redistribute, or claim 
-      ownership of this script.
-    - Removing or altering these credits is strictly prohibited.
-    
-    Copyright (c) 2026 OYB. All rights reserved.
-    ================================================================
-]]
+
 
 -- ⚠️ IMPORTANT: Put this code at the VERY TOP of your Main Script (before obfuscating) ⚠️
 
@@ -25,7 +10,7 @@ local ProtectionConfig = {
     HubName = "SIE Y HUB",
     
     -- Allowed Game ID (Pet Simulator 99 Universe/Place ID)
-    AllowedGameId = 8737899170
+    AllowedGameId = 9147890402
 }
 
 -- Anti-Bypass & Game ID Check
