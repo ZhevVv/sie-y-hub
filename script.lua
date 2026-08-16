@@ -78,6 +78,277 @@ local function OpenMainHub()
     ScreenGui.Parent = parentGui
 
     --------------------------------------------------
+    -- NOTIFICATION SYSTEM
+    --------------------------------------------------
+
+    local NotificationHolder = Instance.new("Frame")
+    NotificationHolder.Name = "NotificationHolder"
+    NotificationHolder.Size = UDim2.new(0, 280, 1, -30)
+    NotificationHolder.Position = UDim2.new(1, -295, 0, 15)
+    NotificationHolder.BackgroundTransparency = 1
+    NotificationHolder.Parent = ScreenGui
+
+    local NotificationLayout = Instance.new("UIListLayout")
+    NotificationLayout.Padding = UDim.new(0, 8)
+    NotificationLayout.HorizontalAlignment = Enum.HorizontalAlignment.Right
+    NotificationLayout.VerticalAlignment = Enum.VerticalAlignment.Top
+    NotificationLayout.SortOrder = Enum.SortOrder.LayoutOrder
+    NotificationLayout.Parent = NotificationHolder
+
+    local function SendNotification(title, message, icon, duration)
+
+        duration = duration or 4
+
+        local Notification = Instance.new("Frame")
+        Notification.Name = "Notification"
+        Notification.Size = UDim2.new(0, 270, 0, 64)
+        Notification.BackgroundColor3 = THEME.CardBg
+        Notification.BorderSizePixel = 0
+        Notification.ClipsDescendants = true
+        Notification.Parent = NotificationHolder
+
+        Instance.new("UICorner", Notification).CornerRadius = UDim.new(0, 9)
+
+        --------------------------------------------------
+        -- STROKE
+        --------------------------------------------------
+
+        local NotificationStroke = Instance.new("UIStroke")
+        NotificationStroke.Color = THEME.AccentPurple
+        NotificationStroke.Thickness = 1
+        NotificationStroke.Transparency = 0.25
+        NotificationStroke.Parent = Notification
+
+        --------------------------------------------------
+        -- PURPLE ACCENT
+        --------------------------------------------------
+
+        local Accent = Instance.new("Frame")
+        Accent.Size = UDim2.new(0, 3, 1, -12)
+        Accent.Position = UDim2.new(0, 6, 0, 6)
+        Accent.BackgroundColor3 = THEME.AccentPurple
+        Accent.BorderSizePixel = 0
+        Accent.Parent = Notification
+
+        Instance.new("UICorner", Accent).CornerRadius = UDim.new(1, 0)
+
+        --------------------------------------------------
+        -- ICON
+        --------------------------------------------------
+
+        local Icon = Instance.new("TextLabel")
+        Icon.Size = UDim2.new(0, 30, 0, 30)
+        Icon.Position = UDim2.new(0, 16, 0, 10)
+        Icon.BackgroundColor3 = Color3.fromRGB(31, 24, 48)
+        Icon.Text = icon or "!"
+        Icon.TextColor3 = THEME.TextWhite
+        Icon.Font = Enum.Font.GothamBold
+        Icon.TextSize = 13
+        Icon.Parent = Notification
+
+        Instance.new("UICorner", Icon).CornerRadius = UDim.new(1, 0)
+
+        --------------------------------------------------
+        -- TITLE
+        --------------------------------------------------
+
+        local Title = Instance.new("TextLabel")
+        Title.Size = UDim2.new(1, -62, 0, 18)
+        Title.Position = UDim2.new(0, 54, 0, 8)
+        Title.BackgroundTransparency = 1
+        Title.Text = title
+        Title.TextColor3 = THEME.TextWhite
+        Title.Font = Enum.Font.GothamBold
+        Title.TextSize = 10
+        Title.TextXAlignment = Enum.TextXAlignment.Left
+        Title.TextTruncate = Enum.TextTruncate.AtEnd
+        Title.Parent = Notification
+
+        --------------------------------------------------
+        -- MESSAGE
+        --------------------------------------------------
+
+        local Message = Instance.new("TextLabel")
+        Message.Size = UDim2.new(1, -62, 0, 25)
+        Message.Position = UDim2.new(0, 54, 0, 27)
+        Message.BackgroundTransparency = 1
+        Message.Text = message
+        Message.TextColor3 = THEME.TextGray
+        Message.Font = Enum.Font.Gotham
+        Message.TextSize = 8
+        Message.TextWrapped = true
+        Message.TextXAlignment = Enum.TextXAlignment.Left
+        Message.TextYAlignment = Enum.TextYAlignment.Top
+        Message.Parent = Notification
+
+        --------------------------------------------------
+        -- PROGRESS BAR
+        --------------------------------------------------
+
+        local ProgressBackground = Instance.new("Frame")
+        ProgressBackground.Size = UDim2.new(1, -20, 0, 2)
+        ProgressBackground.Position = UDim2.new(0, 10, 1, -5)
+        ProgressBackground.BackgroundColor3 = Color3.fromRGB(45, 38, 60)
+        ProgressBackground.BorderSizePixel = 0
+        ProgressBackground.Parent = Notification
+
+        local Progress = Instance.new("Frame")
+        Progress.Size = UDim2.new(1, 0, 1, 0)
+        Progress.BackgroundColor3 = THEME.AccentPurple
+        Progress.BorderSizePixel = 0
+        Progress.Parent = ProgressBackground
+
+        --------------------------------------------------
+        -- START POSITION
+        --------------------------------------------------
+
+        Notification.Position = UDim2.new(
+            1,
+            40,
+            0,
+            0
+        )
+
+        Notification.BackgroundTransparency = 1
+        NotificationStroke.Transparency = 1
+        Icon.TextTransparency = 1
+        Title.TextTransparency = 1
+        Message.TextTransparency = 1
+
+        --------------------------------------------------
+        -- SLIDE IN
+        --------------------------------------------------
+
+        TweenService:Create(
+            Notification,
+            TweenInfo.new(
+                0.35,
+                Enum.EasingStyle.Quint,
+                Enum.EasingDirection.Out
+            ),
+            {
+                Position = UDim2.new(0, 0, 0, 0),
+                BackgroundTransparency = 0
+            }
+        ):Play()
+
+        TweenService:Create(
+            NotificationStroke,
+            TweenInfo.new(0.3),
+            {
+                Transparency = 0.25
+            }
+        ):Play()
+
+        TweenService:Create(
+            Icon,
+            TweenInfo.new(0.25),
+            {
+                TextTransparency = 0
+            }
+        ):Play()
+
+        TweenService:Create(
+            Title,
+            TweenInfo.new(0.25),
+            {
+                TextTransparency = 0
+            }
+        ):Play()
+
+        TweenService:Create(
+            Message,
+            TweenInfo.new(0.25),
+            {
+                TextTransparency = 0
+            }
+        ):Play()
+
+        --------------------------------------------------
+        -- PROGRESS ANIMATION
+        --------------------------------------------------
+
+        TweenService:Create(
+            Progress,
+            TweenInfo.new(
+                duration,
+                Enum.EasingStyle.Linear
+            ),
+            {
+                Size = UDim2.new(0, 0, 1, 0)
+            }
+        ):Play()
+
+        --------------------------------------------------
+        -- REMOVE
+        --------------------------------------------------
+
+        task.delay(duration, function()
+
+            if not Notification or not Notification.Parent then
+                return
+            end
+
+            local slideOut = TweenService:Create(
+                Notification,
+                TweenInfo.new(
+                    0.3,
+                    Enum.EasingStyle.Quint,
+                    Enum.EasingDirection.In
+                ),
+                {
+                    Position = UDim2.new(1, 40, 0, 0),
+                    BackgroundTransparency = 1
+                }
+            )
+
+            TweenService:Create(
+                NotificationStroke,
+                TweenInfo.new(0.2),
+                {
+                    Transparency = 1
+                }
+            ):Play()
+
+            TweenService:Create(
+                Icon,
+                TweenInfo.new(0.2),
+                {
+                    TextTransparency = 1
+                }
+            ):Play()
+
+            TweenService:Create(
+                Title,
+                TweenInfo.new(0.2),
+                {
+                    TextTransparency = 1
+                }
+            ):Play()
+
+            TweenService:Create(
+                Message,
+                TweenInfo.new(0.2),
+                {
+                    TextTransparency = 1
+                }
+            ):Play()
+
+            slideOut:Play()
+
+            slideOut.Completed:Connect(function()
+
+                if Notification then
+                    Notification:Destroy()
+                end
+
+            end)
+
+        end)
+
+    end
+
+    --------------------------------------------------
     -- MAIN FRAME
     --------------------------------------------------
 
@@ -274,6 +545,7 @@ local function OpenMainHub()
             end
 
         end)
+
     end
 
     AddModalToggle(
@@ -311,7 +583,7 @@ local function OpenMainHub()
     Instance.new("UICorner", Sidebar).CornerRadius = UDim.new(0, 12)
 
     --------------------------------------------------
-    -- LOGO CONTAINER
+    -- LOGO
     --------------------------------------------------
 
     local TopLogoContainer = Instance.new("Frame")
@@ -320,11 +592,6 @@ local function OpenMainHub()
     TopLogoContainer.BackgroundTransparency = 1
     TopLogoContainer.Parent = Sidebar
 
-    --------------------------------------------------
-    -- IMAGE ONLY
-    -- NO PURPLE CIRCLE
-    --------------------------------------------------
-
     local TopLogoIcon = Instance.new("ImageLabel")
     TopLogoIcon.Size = UDim2.new(0, 24, 0, 24)
     TopLogoIcon.Position = UDim2.new(0, 4, 0, 2)
@@ -332,10 +599,6 @@ local function OpenMainHub()
     TopLogoIcon.Image = "rbxassetid://92206600654614"
     TopLogoIcon.ScaleType = Enum.ScaleType.Fit
     TopLogoIcon.Parent = TopLogoContainer
-
-    --------------------------------------------------
-    -- HUB TITLE
-    --------------------------------------------------
 
     local TopHubTitle = Instance.new("TextLabel")
     TopHubTitle.Position = UDim2.new(0, 32, 0, 0)
@@ -449,10 +712,6 @@ local function OpenMainHub()
     Header.BackgroundTransparency = 1
     Header.Parent = MainFrame
 
-    --------------------------------------------------
-    -- SEARCH
-    --------------------------------------------------
-
     local SearchBar = Instance.new("TextBox")
     SearchBar.Size = UDim2.new(0, 135, 0, 24)
     SearchBar.Position = UDim2.new(0, 4, 0.5, -12)
@@ -466,10 +725,6 @@ local function OpenMainHub()
     SearchBar.Parent = Header
 
     Instance.new("UICorner", SearchBar).CornerRadius = UDim.new(0, 6)
-
-    --------------------------------------------------
-    -- CTRL
-    --------------------------------------------------
 
     local CtrlTag = Instance.new("Frame")
     CtrlTag.Size = UDim2.new(0, 32, 0, 18)
@@ -489,7 +744,7 @@ local function OpenMainHub()
     CtrlLabel.Parent = CtrlTag
 
     --------------------------------------------------
-    -- MINIMIZE BUTTON
+    -- MINIMIZE
     --------------------------------------------------
 
     local MinBtn = Instance.new("TextButton")
@@ -505,7 +760,7 @@ local function OpenMainHub()
     Instance.new("UICorner", MinBtn).CornerRadius = UDim.new(0, 6)
 
     --------------------------------------------------
-    -- CLOSE BUTTON
+    -- CLOSE
     --------------------------------------------------
 
     local CloseBtn = Instance.new("TextButton")
@@ -532,7 +787,7 @@ local function OpenMainHub()
     DashboardPage.Parent = MainFrame
 
     --------------------------------------------------
-    -- WELCOME + STATUS
+    -- INFO ROW
     --------------------------------------------------
 
     local InfoRow = Instance.new("Frame")
@@ -694,7 +949,7 @@ local function OpenMainHub()
     ToggleTextContainer.Parent = ToggleContainer
 
     --------------------------------------------------
-    -- FLOATING SETTINGS BUTTON
+    -- FLOATING SETTINGS
     --------------------------------------------------
 
     local ToggleSettingBtn = Instance.new("TextButton")
@@ -710,7 +965,7 @@ local function OpenMainHub()
     Instance.new("UICorner", ToggleSettingBtn).CornerRadius = UDim.new(1, 0)
 
     --------------------------------------------------
-    -- FLOATING CLOSE BUTTON
+    -- FLOATING CLOSE
     --------------------------------------------------
 
     local ToggleCloseBtn = Instance.new("TextButton")
@@ -726,7 +981,7 @@ local function OpenMainHub()
     Instance.new("UICorner", ToggleCloseBtn).CornerRadius = UDim.new(1, 0)
 
     --------------------------------------------------
-    -- FLOATING DRAGGING
+    -- FLOATING DRAG
     --------------------------------------------------
 
     local tDragging = false
@@ -832,7 +1087,7 @@ local function OpenMainHub()
     end)
 
     --------------------------------------------------
-    -- MINIMIZE MAIN MENU
+    -- MINIMIZE
     --------------------------------------------------
 
     MinBtn.MouseButton1Click:Connect(function()
@@ -956,6 +1211,41 @@ local function OpenMainHub()
             settingsDragging = false
 
         end
+
+    end)
+
+    --------------------------------------------------
+    -- START NOTIFICATIONS
+    --------------------------------------------------
+
+    task.spawn(function()
+
+        task.wait(0.5)
+
+        SendNotification(
+            "Welcome to Sie Y Hub",
+            "Thanks for using the hub!",
+            "✨",
+            4
+        )
+
+        task.wait(0.8)
+
+        SendNotification(
+            "Join our Discord",
+            "Stay updated with announcements and updates.",
+            "💬",
+            4.5
+        )
+
+        task.wait(0.8)
+
+        SendNotification(
+            "Hub Loaded Successfully",
+            "Everything is ready to use.",
+            "✓",
+            3.5
+        )
 
     end)
 
