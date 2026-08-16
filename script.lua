@@ -1,5 +1,3 @@
--- Code all from Vheo. This code is Protected and Obfuscated by Vheo.
-
 local ProtectionConfig = {
     SecretKey = "vheo123",
     HubName = "SIE Y HUB"
@@ -7,11 +5,9 @@ local ProtectionConfig = {
 
 if not _G[ProtectionConfig.SecretKey] then
     local player = game:GetService("Players").LocalPlayer
-
     if player then
         player:Kick("\n🛡️ Unauthorized Execution 🛡️\n\nPlease use the official Key System to run " .. ProtectionConfig.HubName)
     end
-
     return
 end
 
@@ -45,10 +41,6 @@ local function OpenMainHub()
         parentGui[ScreenGuiName]:Destroy()
     end
 
-    ---------------------------------------------------------------------------
-    -- ORIGINAL PURPLE / VIOLET THEME
-    ---------------------------------------------------------------------------
-
     local THEME = {
         Background = Color3.fromRGB(13, 11, 20),
         SidebarBg = Color3.fromRGB(17, 14, 26),
@@ -67,8 +59,8 @@ local function OpenMainHub()
     ---------------------------------------------------------------------------
 
     local ScreenGui = Instance.new("ScreenGui")
-    ScreenGui.Name = ScreenGuiName
     ScreenGui.Parent = parentGui
+    ScreenGui.Name = ScreenGuiName
     ScreenGui.IgnoreGuiInset = true
     ScreenGui.ResetOnSpawn = false
 
@@ -86,8 +78,7 @@ local function OpenMainHub()
 
     Instance.new("UICorner", MainFrame).CornerRadius = UDim.new(0, 12)
 
-    local MainStroke = Instance.new("UIStroke")
-    MainStroke.Parent = MainFrame
+    local MainStroke = Instance.new("UIStroke", MainFrame)
     MainStroke.Color = Color3.fromRGB(45, 28, 80)
     MainStroke.Thickness = 1.2
 
@@ -106,8 +97,7 @@ local function OpenMainHub()
 
     Instance.new("UICorner", SettingsModal).CornerRadius = UDim.new(0, 5)
 
-    local ModalStroke = Instance.new("UIStroke")
-    ModalStroke.Parent = SettingsModal
+    local ModalStroke = Instance.new("UIStroke", SettingsModal)
     ModalStroke.Color = THEME.AccentPurple
     ModalStroke.Thickness = 1.5
 
@@ -147,7 +137,7 @@ local function OpenMainHub()
     end)
 
     ---------------------------------------------------------------------------
-    -- MODAL DRAGGING
+    -- MODAL DRAG
     ---------------------------------------------------------------------------
 
     local mDragging = false
@@ -155,7 +145,6 @@ local function OpenMainHub()
     local mStartPos
 
     ModalHeader.InputBegan:Connect(function(input)
-
         if input.UserInputType == Enum.UserInputType.Touch
             or input.UserInputType == Enum.UserInputType.MouseButton1 then
 
@@ -166,10 +155,10 @@ local function OpenMainHub()
     end)
 
     UserInputService.InputChanged:Connect(function(input)
-
-        if mDragging
-            and (input.UserInputType == Enum.UserInputType.Touch
-            or input.UserInputType == Enum.UserInputType.MouseMovement) then
+        if mDragging and (
+            input.UserInputType == Enum.UserInputType.Touch
+            or input.UserInputType == Enum.UserInputType.MouseMovement
+        ) then
 
             local delta = input.Position - mDragStart
 
@@ -183,7 +172,6 @@ local function OpenMainHub()
     end)
 
     UserInputService.InputEnded:Connect(function(input)
-
         if input.UserInputType == Enum.UserInputType.Touch
             or input.UserInputType == Enum.UserInputType.MouseButton1 then
 
@@ -246,8 +234,7 @@ local function OpenMainHub()
         switch.Parent = card
         switch.Size = UDim2.new(0, 24, 0, 12)
         switch.Position = UDim2.new(1, -32, 0.5, -6)
-        switch.BackgroundColor3 =
-            defaultState
+        switch.BackgroundColor3 = defaultState
             and THEME.AccentPurple
             or Color3.fromRGB(40, 40, 55)
         switch.Text = ""
@@ -258,12 +245,9 @@ local function OpenMainHub()
         local dot = Instance.new("Frame")
         dot.Parent = switch
         dot.Size = UDim2.new(0, 8, 0, 8)
-
-        dot.Position =
-            defaultState
+        dot.Position = defaultState
             and UDim2.new(1, -10, 0.5, -4)
             or UDim2.new(0, 2, 0.5, -4)
-
         dot.BackgroundColor3 = THEME.TextWhite
         dot.ZIndex = 11
 
@@ -310,6 +294,7 @@ local function OpenMainHub()
                         Position = UDim2.new(0, 2, 0.5, -4)
                     }
                 ):Play()
+
             end
         end)
     end
@@ -336,7 +321,7 @@ local function OpenMainHub()
     )
 
     ---------------------------------------------------------------------------
-    -- FLOATING / MINIMIZED UI
+    -- MINIMIZED FLOATING UI
     ---------------------------------------------------------------------------
 
     local ToggleContainer = Instance.new("Frame")
@@ -354,37 +339,16 @@ local function OpenMainHub()
     ToggleStroke.Color = THEME.AccentPurple
     ToggleStroke.Thickness = 1
 
-    ---------------------------------------------------------------------------
-    -- OPTIONAL FLOATING IMAGE
-    ---------------------------------------------------------------------------
-
-    local FloatingImage = Instance.new("ImageLabel")
-    FloatingImage.Parent = ToggleContainer
-    FloatingImage.Size = UDim2.new(0, 28, 0, 28)
-    FloatingImage.Position = UDim2.new(0, 7, 0.5, -14)
-    FloatingImage.BackgroundTransparency = 1
-    FloatingImage.Image = "rbxassetid://YOUR_IMAGE_ID"
-
-    Instance.new("UICorner", FloatingImage).CornerRadius = UDim.new(1, 0)
-
-    ---------------------------------------------------------------------------
-    -- FLOATING TEXT
-    ---------------------------------------------------------------------------
-
     local ToggleTextContainer = Instance.new("TextLabel")
     ToggleTextContainer.Parent = ToggleContainer
-    ToggleTextContainer.Size = UDim2.new(1, -115, 1, 0)
-    ToggleTextContainer.Position = UDim2.new(0, 42, 0, 0)
+    ToggleTextContainer.Size = UDim2.new(1, -85, 1, 0)
+    ToggleTextContainer.Position = UDim2.new(0, 12, 0, 0)
     ToggleTextContainer.BackgroundTransparency = 1
     ToggleTextContainer.Text = "Sie Y Hub\nPet Simulator 99"
     ToggleTextContainer.TextColor3 = THEME.TextWhite
     ToggleTextContainer.Font = Enum.Font.GothamBold
     ToggleTextContainer.TextSize = 8.5
     ToggleTextContainer.TextXAlignment = Enum.TextXAlignment.Left
-
-    ---------------------------------------------------------------------------
-    -- FLOATING BUTTONS
-    ---------------------------------------------------------------------------
 
     local function CreateMiniBtn(text, offset)
 
@@ -407,13 +371,14 @@ local function OpenMainHub()
     local ToggleCloseBtn = CreateMiniBtn("X", -30)
 
     ---------------------------------------------------------------------------
-    -- FLOATING DRAGGING
+    -- FLOATING UI DRAG
     ---------------------------------------------------------------------------
 
     local tDragging = false
     local tDragStart
     local tStartPos
     local isDragging = false
+
     local dragThreshold = 5
 
     ToggleContainer.InputBegan:Connect(function(input)
@@ -425,14 +390,16 @@ local function OpenMainHub()
             tDragStart = input.Position
             tStartPos = ToggleContainer.Position
             isDragging = false
+
         end
     end)
 
     UserInputService.InputChanged:Connect(function(input)
 
-        if tDragging
-            and (input.UserInputType == Enum.UserInputType.Touch
-            or input.UserInputType == Enum.UserInputType.MouseMovement) then
+        if tDragging and (
+            input.UserInputType == Enum.UserInputType.Touch
+            or input.UserInputType == Enum.UserInputType.MouseMovement
+        ) then
 
             local delta = input.Position - tDragStart
 
@@ -456,8 +423,10 @@ local function OpenMainHub()
             or input.UserInputType == Enum.UserInputType.MouseButton1 then
 
             if tDragging and not isDragging then
+
                 MainFrame.Visible = true
                 ToggleContainer.Visible = false
+
             end
 
             tDragging = false
@@ -526,8 +495,10 @@ local function OpenMainHub()
     Instance.new("UICorner", MinBtn).CornerRadius = UDim.new(0, 6)
 
     MinBtn.MouseButton1Click:Connect(function()
+
         MainFrame.Visible = false
         ToggleContainer.Visible = true
+
     end)
 
     local CloseBtn = Instance.new("TextButton")
@@ -558,28 +529,30 @@ local function OpenMainHub()
 
     Instance.new("UICorner", Sidebar).CornerRadius = UDim.new(0, 12)
 
+    ---------------------------------------------------------------------------
+    -- TOP LOGO
+    -- IMAGE REPLACEMENT
+    ---------------------------------------------------------------------------
+
     local TopLogoContainer = Instance.new("Frame")
     TopLogoContainer.Parent = Sidebar
     TopLogoContainer.Size = UDim2.new(1, -8, 0, 42)
     TopLogoContainer.Position = UDim2.new(0, 4, 0, 6)
     TopLogoContainer.BackgroundTransparency = 1
 
-    local TopLogoIcon = Instance.new("Frame")
+    local TopLogoIcon = Instance.new("ImageLabel")
     TopLogoIcon.Parent = TopLogoContainer
     TopLogoIcon.Size = UDim2.new(0, 24, 0, 24)
     TopLogoIcon.Position = UDim2.new(0, 4, 0, 2)
-    TopLogoIcon.BackgroundColor3 = THEME.AccentPurple
+    TopLogoIcon.BackgroundTransparency = 1
+    TopLogoIcon.Image = "rbxassetid://92206600654614"
+    TopLogoIcon.ScaleType = Enum.ScaleType.Crop
 
     Instance.new("UICorner", TopLogoIcon).CornerRadius = UDim.new(1, 0)
 
-    local TopLogoText = Instance.new("TextLabel")
-    TopLogoText.Parent = TopLogoIcon
-    TopLogoText.Size = UDim2.new(1, 0, 1, 0)
-    TopLogoText.BackgroundTransparency = 1
-    TopLogoText.Text = "SY"
-    TopLogoText.TextColor3 = THEME.TextWhite
-    TopLogoText.Font = Enum.Font.GothamBold
-    TopLogoText.TextSize = 9
+    ---------------------------------------------------------------------------
+    -- HUB NAME
+    ---------------------------------------------------------------------------
 
     local TopHubTitle = Instance.new("TextLabel")
     TopHubTitle.Parent = TopLogoContainer
@@ -649,12 +622,11 @@ local function OpenMainHub()
     BottomAvatar.BackgroundColor3 = THEME.Background
 
     pcall(function()
-        BottomAvatar.Image =
-            Players:GetUserThumbnailAsync(
-                LocalPlayer.UserId,
-                Enum.ThumbnailType.HeadShot,
-                Enum.ThumbnailSize.Size420x420
-            )
+        BottomAvatar.Image = Players:GetUserThumbnailAsync(
+            LocalPlayer.UserId,
+            Enum.ThumbnailType.HeadShot,
+            Enum.ThumbnailSize.Size420x420
+        )
     end)
 
     Instance.new("UICorner", BottomAvatar).CornerRadius = UDim.new(1, 0)
@@ -709,12 +681,12 @@ local function OpenMainHub()
         return page
     end
 
+    local pDashboard = CreatePage()
+    pDashboard.Visible = true
+
     ---------------------------------------------------------------------------
     -- DASHBOARD
     ---------------------------------------------------------------------------
-
-    local pDashboard = CreatePage()
-    pDashboard.Visible = true
 
     local InfoRow = Instance.new("Frame")
     InfoRow.Parent = pDashboard
@@ -849,8 +821,9 @@ local function OpenMainHub()
         stateLbl.Position = UDim2.new(0, 8, 0, 22)
         stateLbl.BackgroundTransparency = 1
         stateLbl.Text = defaultState and "Enabled" or "Disabled"
-        stateLbl.TextColor3 =
-            defaultState and THEME.SuccessGreen or THEME.TextGray
+        stateLbl.TextColor3 = defaultState
+            and THEME.SuccessGreen
+            or THEME.TextGray
         stateLbl.Font = Enum.Font.Gotham
         stateLbl.TextSize = 8
         stateLbl.TextXAlignment = Enum.TextXAlignment.Left
@@ -859,8 +832,7 @@ local function OpenMainHub()
         switch.Parent = card
         switch.Size = UDim2.new(0, 26, 0, 13)
         switch.Position = UDim2.new(1, -30, 1, -18)
-        switch.BackgroundColor3 =
-            defaultState
+        switch.BackgroundColor3 = defaultState
             and THEME.AccentPurple
             or Color3.fromRGB(40, 40, 55)
         switch.Text = ""
@@ -870,8 +842,7 @@ local function OpenMainHub()
         local dot = Instance.new("Frame")
         dot.Parent = switch
         dot.Size = UDim2.new(0, 9, 0, 9)
-        dot.Position =
-            defaultState
+        dot.Position = defaultState
             and UDim2.new(1, -11, 0.5, -4.5)
             or UDim2.new(0, 2, 0.5, -4.5)
         dot.BackgroundColor3 = THEME.TextWhite
@@ -885,8 +856,9 @@ local function OpenMainHub()
             active = not active
 
             stateLbl.Text = active and "Enabled" or "Disabled"
-            stateLbl.TextColor3 =
-                active and THEME.SuccessGreen or THEME.TextGray
+            stateLbl.TextColor3 = active
+                and THEME.SuccessGreen
+                or THEME.TextGray
 
             if active then
 
@@ -923,6 +895,7 @@ local function OpenMainHub()
                         Position = UDim2.new(0, 2, 0.5, -4.5)
                     }
                 ):Play()
+
             end
         end)
     end
@@ -976,8 +949,7 @@ local function OpenMainHub()
         switch.Parent = card
         switch.Size = UDim2.new(0, 24, 0, 12)
         switch.Position = UDim2.new(1, -30, 0.5, -6)
-        switch.BackgroundColor3 =
-            defaultState
+        switch.BackgroundColor3 = defaultState
             and THEME.AccentPurple
             or Color3.fromRGB(40, 40, 55)
         switch.Text = ""
@@ -987,8 +959,7 @@ local function OpenMainHub()
         local dot = Instance.new("Frame")
         dot.Parent = switch
         dot.Size = UDim2.new(0, 8, 0, 8)
-        dot.Position =
-            defaultState
+        dot.Position = defaultState
             and UDim2.new(1, -10, 0.5, -4)
             or UDim2.new(0, 2, 0.5, -4)
         dot.BackgroundColor3 = THEME.TextWhite
@@ -1036,6 +1007,7 @@ local function OpenMainHub()
                         Position = UDim2.new(0, 2, 0.5, -4)
                     }
                 ):Play()
+
             end
         end)
     end
@@ -1109,6 +1081,7 @@ local function OpenMainHub()
                 or input.UserInputType == Enum.UserInputType.Touch then
 
                 dragging = true
+
             end
         end)
 
@@ -1118,14 +1091,16 @@ local function OpenMainHub()
                 or input.UserInputType == Enum.UserInputType.Touch then
 
                 dragging = false
+
             end
         end)
 
         UserInputService.InputChanged:Connect(function(input)
 
-            if dragging
-                and (input.UserInputType == Enum.UserInputType.MouseMovement
-                or input.UserInputType == Enum.UserInputType.Touch) then
+            if dragging and (
+                input.UserInputType == Enum.UserInputType.MouseMovement
+                or input.UserInputType == Enum.UserInputType.Touch
+            ) then
 
                 local pos = math.clamp(
                     (input.Position.X - sliderBar.AbsolutePosition.X)
@@ -1140,6 +1115,7 @@ local function OpenMainHub()
 
                 fill.Size = UDim2.new(pos, 0, 1, 0)
                 valLbl.Text = tostring(val)
+
             end
         end)
     end
@@ -1172,6 +1148,7 @@ local function OpenMainHub()
             if callback then
                 callback()
             end
+
         end)
     end
 
@@ -1263,7 +1240,7 @@ local function OpenMainHub()
     table.insert(AllPages, pSettings)
 
     ---------------------------------------------------------------------------
-    -- TAB BUTTONS
+    -- TABS
     ---------------------------------------------------------------------------
 
     local TabButtons = {}
@@ -1273,24 +1250,21 @@ local function OpenMainHub()
         local btn = Instance.new("TextButton")
         btn.Parent = NavContainer
         btn.Size = UDim2.new(1, 0, 0, 26)
-
-        btn.BackgroundColor3 =
-            isSelected
+        btn.BackgroundColor3 = isSelected
             and THEME.AccentPurple
             or THEME.CardBg
 
         btn.Text = "   " .. icon .. "  " .. name
 
-        btn.BackgroundTransparency =
-            isSelected and 0.2 or 1
+        btn.BackgroundTransparency = isSelected
+            and 0.2
+            or 1
 
-        btn.TextColor3 =
-            isSelected
+        btn.TextColor3 = isSelected
             and THEME.TextWhite
             or THEME.TextGray
 
-        btn.Font =
-            isSelected
+        btn.Font = isSelected
             and Enum.Font.GothamBold
             or Enum.Font.GothamMedium
 
@@ -1320,6 +1294,7 @@ local function OpenMainHub()
                     t.Btn.BackgroundTransparency = 1
                     t.Btn.TextColor3 = THEME.TextGray
                     t.Btn.Font = Enum.Font.GothamMedium
+
                 end
             end
         end)
@@ -1335,15 +1310,15 @@ local function OpenMainHub()
 
     CreateTab("Dashboard", "🏠", 1, true)
     CreateTab("Player", "👤", 2, false)
-    CreateTab("Visuals", "👁️", 3, false)
+    CreateTab("Visuals", "👁", 3, false)
     CreateTab("World", "🌍", 4, false)
     CreateTab("Utility", "⚡", 5, false)
     CreateTab("Miscellaneous", "📦", 6, false)
     CreateTab("Theme", "🎨", 7, false)
-    CreateTab("Settings", "⚙️", 8, false)
+    CreateTab("Settings", "⚙", 8, false)
 
     ---------------------------------------------------------------------------
-    -- MAIN WINDOW DRAGGING
+    -- MAIN FRAME DRAG
     ---------------------------------------------------------------------------
 
     local dragging = false
@@ -1358,14 +1333,16 @@ local function OpenMainHub()
             dragging = true
             dragStart = input.Position
             startPos = MainFrame.Position
+
         end
     end)
 
     UserInputService.InputChanged:Connect(function(input)
 
-        if dragging
-            and (input.UserInputType == Enum.UserInputType.Touch
-            or input.UserInputType == Enum.UserInputType.MouseMovement) then
+        if dragging and (
+            input.UserInputType == Enum.UserInputType.Touch
+            or input.UserInputType == Enum.UserInputType.MouseMovement
+        ) then
 
             local delta = input.Position - dragStart
 
@@ -1375,6 +1352,7 @@ local function OpenMainHub()
                 startPos.Y.Scale,
                 startPos.Y.Offset + delta.Y
             )
+
         end
     end)
 
@@ -1384,8 +1362,10 @@ local function OpenMainHub()
             or input.UserInputType == Enum.UserInputType.MouseButton1 then
 
             dragging = false
+
         end
     end)
+
 end
 
 OpenMainHub()
