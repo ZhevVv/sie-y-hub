@@ -1,4 +1,4 @@
---Code from Vheo
+--Code from Vheo. This Script is Protected and Obfuscated also by Vheo.
 
 local ProtectionConfig = {
     SecretKey = "vheo123",
