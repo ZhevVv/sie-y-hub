@@ -1,4 +1,4 @@
---Code from Vheo. This Script is Protected and Obfuscated also by Vheo. Contact me in Discord.
+-- Code all from Vheo. This code is Protected and Obfuscated by Vheo.
 
 local ProtectionConfig = {
     SecretKey = "vheo123",
